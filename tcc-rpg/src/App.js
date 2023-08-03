@@ -1,12 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+// App.js
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Home from './pages/Home';
-import DiceRoller from './pages/DiceRoller';
-import Login from './pages/Login';
-import CharacterCreation from './pages/CharacterCreation';
-import StoryCreation from './pages/StoryCreation';
-import Tutorial from './pages/Tutorial';
+import Home from "./pages/Home";
+import DiceRoller from "./pages/DiceRoller";
+import Login from "./pages/Login";
+import CharacterCreation from "./pages/CharacterCreation";
+import StoryCreation from "./pages/StoryCreation";
+import Tutorial from "./pages/Tutorial";
 
 const App = () => {
   return (
@@ -15,22 +16,22 @@ const App = () => {
         <nav>
           <ul>
             <li>
-              <a href="/">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <a href="/DiceRoller">DiceRoller</a>
+              <Link to="/DiceRoller">DiceRoller</Link>
             </li>
             <li>
-              <a href="/CharacterCreation">CharacterCreation</a>
+              <Link to="/CharacterCreation">CharacterCreation</Link>
             </li>
             <li>
-              <a href="/StoryCreation">StoryCreation</a>
+              <Link to="/StoryCreation">StoryCreation</Link>
             </li>
             <li>
-              <a href="/Tutorial">Tutorial</a>
+              <Link to="/Tutorial">Tutorial</Link>
             </li>
             <li>
-              <a href="/Login">Login</a>
+              <Link to="/Login">Login</Link>
             </li>
           </ul>
         </nav>
