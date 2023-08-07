@@ -1,6 +1,8 @@
 // App.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import app from "./firebaseConfig";
 
 import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";
@@ -10,6 +12,19 @@ import StoryCreation from "./pages/StoryCreation";
 import Tutorial from "./pages/Tutorial";
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const auth = getAuth(app);
+    // Verificar o estado de autenticação do usuário ao montar o componente
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    // Limpar o listener ao desmontar o componente
+    return () => unsubscribe();
+  }, []);
+
   return (
     <Router>
       <div>
@@ -30,9 +45,15 @@ const App = () => {
             <li>
               <Link to="/Tutorial">Tutorial</Link>
             </li>
-            <li>
-              <Link to="/Login">Login</Link>
-            </li>
+            {user ? (
+              <li>
+                <Link to="/Login">Logout</Link>
+              </li>
+            ) : (
+              <li>
+                <Link to="/Login">Login</Link>
+              </li>
+            )}
           </ul>
         </nav>
 

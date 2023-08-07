@@ -1,9 +1,9 @@
-// Login.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   getAuth,
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import app from "../firebaseConfig";
@@ -12,8 +12,51 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para controlar o botão de logoff
 
   const auth = getAuth(app);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      // Verificar o estado de autenticação do usuário
+      if (user) {
+        // Se o usuário estiver autenticado, definir o estado como verdadeiro e redirecionar para outra página
+        setIsLoggedIn(true);
+      } else {
+        // Se o usuário não estiver autenticado, definir o estado como falso
+        setIsLoggedIn(false);
+      }
+    });
+
+    return () => unsubscribe(); // Limpar o listener ao desmontar o componente
+  }, [auth]);
+
+  const handleLogin = () => {
+    setError(""); // Limpa qualquer mensagem de erro anterior
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Login bem-sucedido, você pode redirecionar o usuário para outra página ou executar outras ações.
+        console.log("Login bem-sucedido:", userCredential.user);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  const handleLogout = () => {
+    setError(""); // Limpa qualquer mensagem de erro anterior
+
+    signOut(auth)
+      .then(() => {
+        // Logoff bem-sucedido
+        console.log("Logoff bem-sucedido");
+        setIsLoggedIn(false); // Define o estado como falso para exibir o botão de login novamente
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
 
   const handleSignup = () => {
     setError(""); // Limpa qualquer mensagem de erro anterior
@@ -43,37 +86,29 @@ const Login = () => {
       });
   };
 
-  const handleLogin = () => {
-    setError(""); // Limpa qualquer mensagem de erro anterior
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Login bem-sucedido, você pode redirecionar o usuário para outra página ou executar outras ações.
-        console.log("Login bem-sucedido:", userCredential.user);
-        alert("Login feito");
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  };
-
   return (
     <div>
       <h1>Login</h1>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="E-mail"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Senha"
-      />
-      <button onClick={handleSignup}>Criar conta</button>
-      <button onClick={handleLogin}>Entrar</button>
+      {isLoggedIn ? (
+        <button onClick={handleLogout}>Logoff</button>
+      ) : (
+        <>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-mail"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha"
+          />
+          <button onClick={handleLogin}>Login</button>
+          <button onClick={handleSignup}>Criar conta</button>
+        </>
+      )}
       {error && <p>{error}</p>}
     </div>
   );
