@@ -1,54 +1,71 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import { getAuth } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore"; // Importar funções de banco de dados
+import { app, db } from "../firebaseConfig";
 
 const CharacterCreation = () => {
-  const [name, setName] = useState('');
-  const [level, setLevel] = useState('');
-  const [race, setRace] = useState('');
-  const [characterClass, setCharacterClass] = useState('');
+  const [characterName, setCharacterName] = useState("");
+  const [characterClass, setCharacterClass] = useState("");
+  const [characterRace, setCharacterRace] = useState("");
+  const [error, setError] = useState("");
+  const auth = getAuth(app);
 
-  const handleCreateCharacter = async () => {
+  const handleCharacterCreation = async (e) => {
+    e.preventDefault();
+    setError("");
+
     try {
-      const response = await axios.post('/api/characters', {
-        name,
-        level,
-        race,
-        characterClass,
-      });
-      // Lógica para tratar a resposta após a criação do personagem
+      const user = auth.currentUser;
+      if (user) {
+        // Crie um objeto com os detalhes do personagem
+        const newCharacter = {
+          name: characterName,
+          class: characterClass,
+          race: characterRace,
+          userId: user.uid, // Vincule o personagem ao usuário logado
+        };
+
+        // Adicione o personagem ao banco de dados
+        const charactersCollection = collection(db, "characters"); // Use a instância do Firestore (db)
+        await addDoc(charactersCollection, newCharacter);
+
+        // Limpe os campos após a criação bem-sucedida
+        setCharacterName("");
+        setCharacterClass("");
+        setCharacterRace("");
+      } else {
+        setError("Usuário não está logado.");
+      }
     } catch (error) {
-      // Lógica para tratar erros de criação do personagem
+      setError("Erro ao criar o personagem: " + error.message);
     }
   };
 
   return (
     <div>
-      <h1>Character Creation</h1>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Level"
-        value={level}
-        onChange={(e) => setLevel(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Race"
-        value={race}
-        onChange={(e) => setRace(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Class"
-        value={characterClass}
-        onChange={(e) => setCharacterClass(e.target.value)}
-      />
-      <button onClick={handleCreateCharacter}>Create Character</button>
+      <h2>Criação de Personagem</h2>
+      <form onSubmit={handleCharacterCreation}>
+        <input
+          type="text"
+          value={characterName}
+          onChange={(e) => setCharacterName(e.target.value)}
+          placeholder="Nome do Personagem"
+        />
+        <input
+          type="text"
+          value={characterClass}
+          onChange={(e) => setCharacterClass(e.target.value)}
+          placeholder="Classe do Personagem"
+        />
+        <input
+          type="text"
+          value={characterRace}
+          onChange={(e) => setCharacterRace(e.target.value)}
+          placeholder="Raça do Personagem"
+        />
+        <button type="submit">Criar Personagem</button>
+      </form>
+      {error && <p>{error}</p>}
     </div>
   );
 };

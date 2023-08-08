@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import app from "./firebaseConfig";
+import { app } from "./firebaseConfig";
 
 import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";

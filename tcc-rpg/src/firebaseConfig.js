@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, browserLocalPersistence } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDjue9rOd_eTlxdq6p_7tmsOLw4yCmlxt0",
@@ -12,9 +13,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 const auth = getAuth(app);
 
 // Habilitar a persistência de autenticação "local"
 auth.setPersistence(getAuth(), browserLocalPersistence);
 
-export default app;
+export { app, db }; // Exporte a instância do app e do Firestore
