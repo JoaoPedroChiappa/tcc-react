@@ -2,8 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-import { initializeApp } from "firebase/app";
-import { app } from "./firebaseConfig";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +11,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-// Inicializar Firebase
-initializeApp(app);

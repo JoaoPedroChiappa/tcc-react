@@ -1,27 +1,14 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
 
 const StoryCreation = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleCreateStory = async () => {
-    try {
-      const response = await axios.post('/api/stories', {
-        title,
-        description,
-      });
-      // Lógica para tratamento de sucesso da criação da história
-    } catch (error) {
-      setErrorMessage('Erro ao criar a história');
-    }
-  };
+  const handleCreateStory = async () => {};
 
   return (
     <div>
       <h1>Story Creation</h1>
-      {errorMessage && <p>{errorMessage}</p>}
       <input
         type="text"
         placeholder="Title"

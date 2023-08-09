@@ -19,4 +19,4 @@ const auth = getAuth(app);
 // Habilitar a persistência de autenticação "local"
 auth.setPersistence(getAuth(), browserLocalPersistence);
 
-export { app, db }; // Exporte a instância do app e do Firestore
+export { app, db, auth }; // Exporte a instância do app e do Firestore
