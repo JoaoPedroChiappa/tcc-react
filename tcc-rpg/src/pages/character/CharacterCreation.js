@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getAuth } from "firebase/auth";
 import { collection, addDoc } from "firebase/firestore"; // Importar funções de banco de dados
-import { app, db } from "../firebaseConfig";
+import { app, db } from "../../firebaseConfig";
 
 const CharacterCreation = () => {
   const [characterName, setCharacterName] = useState("");
