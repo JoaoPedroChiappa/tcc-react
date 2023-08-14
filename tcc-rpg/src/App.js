@@ -7,7 +7,6 @@ import { app } from "./firebaseConfig";
 import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";
 import Login from "./pages/Login";
-import CharacterCreation from "./pages/character/CharacterCreation";
 import CharacterList from "./pages/character/CharacterList";
 import StoryCreation from "./pages/StoryCreation";
 import Tutorial from "./pages/Tutorial";
@@ -38,10 +37,7 @@ const App = () => {
               <Link to="/DiceRoller">DiceRoller</Link>
             </li>
             <li>
-              <Link to="/CharacterCreation">CharacterCreation</Link>
-            </li>
-            <li>
-              <Link to="/CharacterList">CharacterList</Link>
+              <Link to="/CharacterList">Characters</Link>
             </li>
             <li>
               <Link to="/StoryCreation">StoryCreation</Link>
@@ -64,7 +60,6 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/DiceRoller" component={DiceRoller} />
-          <Route path="/CharacterCreation" component={CharacterCreation} />
           <Route path="/CharacterList" component={CharacterList} />
           <Route path="/Login" component={Login} />
           <Route path="/StoryCreation" component={StoryCreation} />

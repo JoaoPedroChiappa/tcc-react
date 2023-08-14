@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { getAuth } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore"; // Importar funções de banco de dados
+import { collection, addDoc } from "firebase/firestore"; 
+import { useHistory } from "react-router-dom";
 import { app, db } from "../../firebaseConfig";
 
-const CharacterCreation = () => {
+const CharacterCreation = ({ updateCharacterList }) => {
+  const history = useHistory();
   const [characterName, setCharacterName] = useState("");
   const [characterClass, setCharacterClass] = useState("");
   const [characterRace, setCharacterRace] = useState("");
@@ -13,7 +15,7 @@ const CharacterCreation = () => {
   const handleCharacterCreation = async (e) => {
     e.preventDefault();
     setError("");
-
+  
     try {
       const user = auth.currentUser;
       if (user) {
@@ -24,15 +26,19 @@ const CharacterCreation = () => {
           race: characterRace,
           userId: user.uid, // Vincule o personagem ao usuário logado
         };
-
+  
         // Adicione o personagem ao banco de dados
         const charactersCollection = collection(db, "characters"); // Use a instância do Firestore (db)
         await addDoc(charactersCollection, newCharacter);
-
+  
         // Limpe os campos após a criação bem-sucedida
         setCharacterName("");
         setCharacterClass("");
         setCharacterRace("");
+  
+        // Redirecione para a página de visualização de personagens
+        await updateCharacterList();
+        history.push("/CharacterList");
       } else {
         setError("Usuário não está logado.");
       }
@@ -40,6 +46,7 @@ const CharacterCreation = () => {
       setError("Erro ao criar o personagem: " + error.message);
     }
   };
+  
 
   return (
     <div>
