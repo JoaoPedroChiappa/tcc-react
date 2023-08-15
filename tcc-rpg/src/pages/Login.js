@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
-  getAuth,
   signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { app } from "../firebaseConfig";
+import { app, auth } from "../firebaseConfig";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +13,6 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para controlar o botão de logoff
 
-  const auth = getAuth(app);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -29,7 +27,7 @@ const Login = () => {
     });
 
     return () => unsubscribe(); // Limpar o listener ao desmontar o componente
-  }, [auth]);
+  });
 
   const handleLogin = () => {
     setError(""); // Limpa qualquer mensagem de erro anterior

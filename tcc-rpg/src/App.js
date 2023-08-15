@@ -1,8 +1,8 @@
 // App.js
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app } from "./firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebaseConfig";
 
 import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";
@@ -15,7 +15,6 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const auth = getAuth(app);
     // Verificar o estado de autenticação do usuário ao montar o componente
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
