@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { app, db } from "../../firebaseConfig";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -18,7 +25,7 @@ const CharacterList = () => {
         collection(db, "characters"),
         where("userId", "==", user.uid)
       );
-  
+
       try {
         const querySnapshot = await getDocs(charactersQuery);
         const characterList = [];
@@ -31,7 +38,15 @@ const CharacterList = () => {
       }
     }
   };
-  
+
+  const handleDeleteCharacter = async (characterId) => {
+    try {
+      await deleteDoc(doc(db, "characters", characterId));
+      updateCharacterList();
+    } catch (error) {
+      console.error("Error deleting character: ", error);
+    }
+  };
 
   useEffect(() => {
     // Verifica se o usuário está autenticado
@@ -59,48 +74,59 @@ const CharacterList = () => {
 
   return (
     <Router>
-    <div>
-      <h2>Lista de Personagens</h2>
-      <Link to="/CharacterCreation">
-        <button>Criar Novo Personagem</button>
-      </Link>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Classe</th>
-            <th>Raça</th>
+      <div>
+        <h2>Lista de Personagens</h2>
+        <Link to="/CharacterCreation">
+          <button>Criar Novo Personagem</button>
+        </Link>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Classe</th>
+              <th>Raça</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             {characters.map((character) => (
               <tr key={character.id}>
-              <td>{character.name}</td>
-              <td>{character.class}</td>
-              <td>{character.race}</td>
-              <td>
-                <Link to={`/CharacterEdit/${character.id}`}>Editar</Link>
-              </td>
+                <td>{character.name}</td>
+                <td>{character.class}</td>
+                <td>{character.race}</td>
+                <td>
+                  <Link to={`/CharacterEdit/${character.id}`}>Editar</Link>
+                  <button onClick={() => handleDeleteCharacter(character.id)}>
+                    Excluir
+                  </button>
+                </td>
               </tr>
-               ))}
-            </tbody>
-            </table>
-    </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-    <Switch>
-      <Route path="/CharacterCreation" render={(props) => (
-    <CharacterCreation {...props} updateCharacterList={updateCharacterList} />
-  )} />
-      <Route path="/CharacterEdit/:characterId" render={(props) => (
-    <CharacterEdit {...props} updateCharacterList={updateCharacterList} />
-  )} />
-    </Switch>
-
+      <Switch>
+        <Route
+          path="/CharacterCreation"
+          render={(props) => (
+            <CharacterCreation
+              {...props}
+              updateCharacterList={updateCharacterList}
+            />
+          )}
+        />
+        <Route
+          path="/CharacterEdit/:characterId"
+          render={(props) => (
+            <CharacterEdit
+              {...props}
+              updateCharacterList={updateCharacterList}
+            />
+          )}
+        />
+      </Switch>
     </Router>
   );
 };
 
 export default CharacterList;
-
-
-
