@@ -4,7 +4,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig";
 
 const Login = () => {
@@ -12,29 +12,33 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para controlar o botão de logoff
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSignupForm, setShowSignupForm] = useState(false);
+  const [currentUserData, setCurrentUserData] = useState(null); // Armazenar os dados do usuário atual
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      // Verificar o estado de autenticação do usuário
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        // Se o usuário estiver autenticado, definir o estado como verdadeiro e redirecionar para outra página
         setIsLoggedIn(true);
+        const userRef = doc(db, "users", user.uid);
+        const userDataSnapshot = await getDoc(userRef);
+        if (userDataSnapshot.exists) {
+          setCurrentUserData(userDataSnapshot.data());
+        }
       } else {
-        // Se o usuário não estiver autenticado, definir o estado como falso
+        setCurrentUserData(null); // Resetar os dados do usuário antes de definir isLoggedIn para false
         setIsLoggedIn(false);
       }
     });
 
-    return () => unsubscribe(); // Limpar o listener ao desmontar o componente
-  });
+    return () => unsubscribe();
+  }, []);
 
   const handleLogin = () => {
-    setError(""); // Limpa qualquer mensagem de erro anterior
-
+    setError("");
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Login bem-sucedido, você pode redirecionar o usuário para outra página ou executar outras ações.
         console.log("Login bem-sucedido:", userCredential.user);
       })
       .catch((error) => {
@@ -43,13 +47,11 @@ const Login = () => {
   };
 
   const handleLogout = () => {
-    setError(""); // Limpa qualquer mensagem de erro anterior
-
+    setError("");
     signOut(auth)
       .then(() => {
-        // Logoff bem-sucedido
         console.log("Logoff bem-sucedido");
-        setIsLoggedIn(false); // Define o estado como falso para exibir o botão de login novamente
+        setIsLoggedIn(false);
       })
       .catch((error) => {
         setError(error.message);
@@ -57,21 +59,16 @@ const Login = () => {
   };
 
   const handleSignup = () => {
-    setError(""); // Limpa qualquer mensagem de erro anterior
-
+    setError("");
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Novo usuário criado com sucesso, você pode redirecionar o usuário para outra página ou executar outras ações.
         console.log("Novo usuário criado:", userCredential.user);
-
-        // Salvar os dados do usuário na coleção "users"
         const userRef = doc(db, "users", userCredential.user.uid);
         const userData = {
           id: userCredential.user.uid,
           email: userCredential.user.email,
           username: username,
           friends: [],
-          // Outros dados que você queira salvar, como nome, data de nascimento, etc.
         };
         setDoc(userRef, userData)
           .then(() => {
@@ -89,32 +86,75 @@ const Login = () => {
   return (
     <div>
       <h1>Login</h1>
+
       {isLoggedIn ? (
-        <button onClick={handleLogout}>Logoff</button>
+        <>
+          <p>Bem-vindo, {currentUserData?.username}!</p>
+          <button onClick={handleLogout}>Logoff</button>
+        </>
       ) : (
         <>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Senha"
-          />
-          <button onClick={handleLogin}>Login</button>
-          <button onClick={handleSignup}>Criar conta</button>
+          <button
+            onClick={() => {
+              setShowLoginForm(true);
+              setShowSignupForm(false);
+            }}
+          >
+            Login
+          </button>
+          <button
+            onClick={() => {
+              setShowSignupForm(true);
+              setShowLoginForm(false);
+            }}
+          >
+            Criar conta
+          </button>
+
+          {showLoginForm && (
+            <>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="E-mail"
+              />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Senha"
+              />
+              <button onClick={handleLogin}>Login</button>
+            </>
+          )}
+
+          {showSignupForm && (
+            <>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+              />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="E-mail"
+              />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Senha"
+              />
+              <button onClick={handleSignup}>Criar conta</button>
+            </>
+          )}
         </>
       )}
+
       {error && <p>{error}</p>}
     </div>
   );
