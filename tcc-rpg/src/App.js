@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import CharacterList from "./pages/character/CharacterList";
 import StoryCreation from "./pages/StoryCreation";
 import Tutorial from "./pages/Tutorial";
+import FriendsAdd from "./pages/FriendsAdd";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -44,6 +45,9 @@ const App = () => {
             <li>
               <Link to="/Tutorial">Tutorial</Link>
             </li>
+            <li>
+              <Link to="/Amigos">Amigos</Link>
+            </li>
             {user ? (
               <li>
                 <Link to="/Login">Logout</Link>
@@ -63,6 +67,12 @@ const App = () => {
           <Route path="/Login" component={Login} />
           <Route path="/StoryCreation" component={StoryCreation} />
           <Route path="/Tutorial" component={Tutorial} />
+          <Route
+            path="/Amigos"
+            render={(props) => (
+              <FriendsAdd {...props} currentUserId={user ? user.uid : null} />
+            )}
+          />
         </Switch>
       </div>
     </Router>

@@ -4,15 +4,15 @@ import {
   signOut,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { app, auth } from "../firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebaseConfig";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado para controlar o botão de logoff
-
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -65,10 +65,12 @@ const Login = () => {
         console.log("Novo usuário criado:", userCredential.user);
 
         // Salvar os dados do usuário na coleção "users"
-        const db = getFirestore(app);
         const userRef = doc(db, "users", userCredential.user.uid);
         const userData = {
+          id: userCredential.user.uid,
           email: userCredential.user.email,
+          username: username,
+          friends: [],
           // Outros dados que você queira salvar, como nome, data de nascimento, etc.
         };
         setDoc(userRef, userData)
@@ -91,6 +93,12 @@ const Login = () => {
         <button onClick={handleLogout}>Logoff</button>
       ) : (
         <>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+          />
           <input
             type="email"
             value={email}

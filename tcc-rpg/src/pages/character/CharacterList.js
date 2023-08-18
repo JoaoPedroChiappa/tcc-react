@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
 import {
   collection,
   getDocs,
@@ -8,7 +7,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { app, db } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import CharacterCreation from "./CharacterCreation";
@@ -16,7 +15,6 @@ import CharacterEdit from "./CharacterEdit";
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
-  const auth = getAuth(app);
 
   const updateCharacterList = async () => {
     const user = auth.currentUser;
@@ -70,7 +68,7 @@ const CharacterList = () => {
           console.error("Error fetching characters: ", error);
         });
     }
-  }, [auth]);
+  });
 
   return (
     <Router>
