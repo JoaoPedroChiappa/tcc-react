@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   doc,
   getDocs,
@@ -16,38 +16,38 @@ function FriendsAdd({ currentUserId }) {
   const [friends, setFriends] = useState([]); // Para armazenar a lista de amigos
   const [friendUsername, setFriendUsername] = useState(""); // Alterado de friendEmail para friendUsername
 
-  useEffect(() => {
-    const fetchFriends = async () => {
-      if (currentUserId) {
-        try {
-          const userDocRef = doc(db, "users", currentUserId);
-          const userDoc = await getDoc(userDocRef);
+  const fetchFriends = useCallback(async () => {
+    if (currentUserId) {
+      try {
+        const userDocRef = doc(db, "users", currentUserId);
+        const userDoc = await getDoc(userDocRef);
 
-          if (userDoc.exists) {
-            const userData = userDoc.data();
-            if (userData && userData.friends) {
-              const friendDataPromises = userData.friends.map(
-                async (friendId) => {
-                  const friendDoc = await getDoc(doc(db, "users", friendId));
-                  return {
-                    id: friendId,
-                    username: friendDoc.data().username,
-                  };
-                }
-              );
+        if (userDoc.exists) {
+          const userData = userDoc.data();
+          if (userData && userData.friends) {
+            const friendDataPromises = userData.friends.map(
+              async (friendId) => {
+                const friendDoc = await getDoc(doc(db, "users", friendId));
+                return {
+                  id: friendId,
+                  username: friendDoc.data().username,
+                };
+              }
+            );
 
-              const friendData = await Promise.all(friendDataPromises);
-              setFriends(friendData);
-            }
+            const friendData = await Promise.all(friendDataPromises);
+            setFriends(friendData);
           }
-        } catch (error) {
-          console.error("Erro ao buscar amigos: ", error);
         }
+      } catch (error) {
+        console.error("Erro ao buscar amigos: ", error);
       }
-    };
-
-    fetchFriends();
+    }
   }, [currentUserId]);
+
+  useEffect(() => {
+    fetchFriends();
+  }, [fetchFriends]);
 
   const handleAddFriend = async () => {
     if (!currentUserId) {
@@ -91,6 +91,7 @@ function FriendsAdd({ currentUserId }) {
         "Ocorreu um erro ao adicionar o amigo. Por favor, tente novamente."
       );
     }
+    fetchFriends();
   };
 
   const handleRemoveFriend = async (friendId) => {
@@ -115,6 +116,7 @@ function FriendsAdd({ currentUserId }) {
       console.error("Erro ao remover amigo: ", error);
       alert("Ocorreu um erro ao remover o amigo. Por favor, tente novamente.");
     }
+    fetchFriends();
   };
 
   return (
