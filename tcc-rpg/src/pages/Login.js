@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig";
+import "../css/Login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,7 +16,7 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignupForm, setShowSignupForm] = useState(false);
-  const [currentUserData, setCurrentUserData] = useState(null); // Armazenar os dados do usuário atual
+  const [currentUserData, setCurrentUserData] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -27,7 +28,7 @@ const Login = () => {
           setCurrentUserData(userDataSnapshot.data());
         }
       } else {
-        setCurrentUserData(null); // Resetar os dados do usuário antes de definir isLoggedIn para false
+        setCurrentUserData(null);
         setIsLoggedIn(false);
       }
     });
@@ -35,66 +36,63 @@ const Login = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError("");
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("Login bem-sucedido:", userCredential.user);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login bem-sucedido");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setError("");
-    signOut(auth)
-      .then(() => {
-        console.log("Logoff bem-sucedido");
-        setIsLoggedIn(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+    try {
+      await signOut(auth);
+      console.log("Logoff bem-sucedido");
+      setIsLoggedIn(false);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     setError("");
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("Novo usuário criado:", userCredential.user);
-        const userRef = doc(db, "users", userCredential.user.uid);
-        const userData = {
-          id: userCredential.user.uid,
-          email: userCredential.user.email,
-          username: username,
-          friends: [],
-        };
-        setDoc(userRef, userData)
-          .then(() => {
-            alert("Dados do usuário salvos com sucesso!");
-          })
-          .catch((error) => {
-            console.error("Erro ao salvar dados do usuário:", error);
-          });
-      })
-      .catch((error) => {
-        setError(error.message);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("Novo usuário criado:", userCredential.user);
+      const userRef = doc(db, "users", userCredential.user.uid);
+      await setDoc(userRef, {
+        id: userCredential.user.uid,
+        email: userCredential.user.email,
+        username: username,
+        friends: [],
       });
+      alert("Dados do usuário salvos com sucesso!");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h1>Login</h1>
-
       {isLoggedIn ? (
         <>
           <p>Bem-vindo, {currentUserData?.username}!</p>
-          <button onClick={handleLogout}>Logoff</button>
+          <button className="login-button" onClick={handleLogout}>
+            Logoff
+          </button>
         </>
       ) : (
         <>
           <button
+            className="login-button"
             onClick={() => {
               setShowLoginForm(true);
               setShowSignupForm(false);
@@ -103,6 +101,7 @@ const Login = () => {
             Login
           </button>
           <button
+            className="signup-button"
             onClick={() => {
               setShowSignupForm(true);
               setShowLoginForm(false);
@@ -110,52 +109,58 @@ const Login = () => {
           >
             Criar conta
           </button>
-
           {showLoginForm && (
             <>
               <input
+                className="input-field"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="E-mail"
               />
               <input
+                className="input-field"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Senha"
               />
-              <button onClick={handleLogin}>Login</button>
+              <button className="login-button" onClick={handleLogin}>
+                Login
+              </button>
             </>
           )}
-
           {showSignupForm && (
             <>
               <input
+                className="input-field"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
               />
               <input
+                className="input-field"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="E-mail"
               />
               <input
+                className="input-field"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Senha"
               />
-              <button onClick={handleSignup}>Criar conta</button>
+              <button className="signup-button" onClick={handleSignup}>
+                Criar conta
+              </button>
             </>
           )}
         </>
       )}
-
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

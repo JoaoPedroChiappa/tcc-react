@@ -1,0 +1,31 @@
+.friends-add-container {
+  margin: 20px;
+}
+
+.input-field {
+  padding: 10px;
+  margin: 10px;
+}
+
+.add-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.friends-list {
+  margin-top: 20px;
+}
+
+.friend-item {
+  list-style-type: none;
+  margin: 10px;
+}
+
+.remove-button {
+  padding: 5px;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+}

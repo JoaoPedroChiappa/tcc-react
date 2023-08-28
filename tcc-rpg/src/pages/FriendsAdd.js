@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   doc,
   getDocs,
@@ -11,43 +11,44 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import "../css/FriendsAdd.css";
 
 function FriendsAdd({ currentUserId }) {
   const [friends, setFriends] = useState([]); // Para armazenar a lista de amigos
   const [friendUsername, setFriendUsername] = useState(""); // Alterado de friendEmail para friendUsername
 
-  const fetchFriends = useCallback(async () => {
-    if (currentUserId) {
-      try {
-        const userDocRef = doc(db, "users", currentUserId);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists) {
-          const userData = userDoc.data();
-          if (userData && userData.friends) {
-            const friendDataPromises = userData.friends.map(
-              async (friendId) => {
-                const friendDoc = await getDoc(doc(db, "users", friendId));
-                return {
-                  id: friendId,
-                  username: friendDoc.data().username,
-                };
-              }
-            );
-
-            const friendData = await Promise.all(friendDataPromises);
-            setFriends(friendData);
-          }
-        }
-      } catch (error) {
-        console.error("Erro ao buscar amigos: ", error);
-      }
-    }
-  }, [currentUserId]);
-
   useEffect(() => {
+    const fetchFriends = async () => {
+      if (currentUserId) {
+        try {
+          const userDocRef = doc(db, "users", currentUserId);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists) {
+            const userData = userDoc.data();
+            if (userData && userData.friends) {
+              const friendDataPromises = userData.friends.map(
+                async (friendId) => {
+                  const friendDoc = await getDoc(doc(db, "users", friendId));
+                  return {
+                    id: friendId,
+                    username: friendDoc.data().username,
+                  };
+                }
+              );
+
+              const friendData = await Promise.all(friendDataPromises);
+              setFriends(friendData);
+            }
+          }
+        } catch (error) {
+          console.error("Erro ao buscar amigos: ", error);
+        }
+      }
+    };
+
     fetchFriends();
-  }, [fetchFriends]);
+  }, [currentUserId]);
 
   const handleAddFriend = async () => {
     if (!currentUserId) {
@@ -91,7 +92,6 @@ function FriendsAdd({ currentUserId }) {
         "Ocorreu um erro ao adicionar o amigo. Por favor, tente novamente."
       );
     }
-    fetchFriends();
   };
 
   const handleRemoveFriend = async (friendId) => {
@@ -116,27 +116,30 @@ function FriendsAdd({ currentUserId }) {
       console.error("Erro ao remover amigo: ", error);
       alert("Ocorreu um erro ao remover o amigo. Por favor, tente novamente.");
     }
-    fetchFriends();
   };
 
   return (
-    <div>
+    <div className="friends-add-container">
       <input
+        className="input-field"
         type="text"
         value={friendUsername}
         onChange={(e) => setFriendUsername(e.target.value)}
         placeholder="Username do amigo"
       />
-      <button onClick={handleAddFriend}>Adicionar Amigo</button>
-
-      {/* Lista de amigos */}
-      <div>
+      <button className="add-button" onClick={handleAddFriend}>
+        Adicionar Amigo
+      </button>
+      <div className="friends-list">
         <h3>Meus Amigos</h3>
         <ul>
           {friends.map((friend, index) => (
-            <li key={index}>
+            <li key={index} className="friend-item">
               {friend.username}{" "}
-              <button onClick={() => handleRemoveFriend(friend.id)}>
+              <button
+                className="remove-button"
+                onClick={() => handleRemoveFriend(friend.id)}
+              >
                 Remover
               </button>
             </li>

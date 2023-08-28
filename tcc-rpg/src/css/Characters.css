@@ -1,0 +1,93 @@
+.character-creation-container {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.character-form .input-group {
+  margin-bottom: 15px;
+}
+
+.character-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.character-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.create-button {
+  background: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: red;
+}
+
+.character-list-container,
+.character-edit-container {
+  background: #f4f4f4;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.character-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.character-table th,
+.character-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.character-table th {
+  background: #f2f2f2;
+}
+
+.character-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.create-button,
+.edit-button,
+.delete-button,
+.save-button {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-button {
+  background: #007bff;
+  color: white;
+}
+
+.edit-button {
+  background: #f4e542;
+  color: black;
+}
+
+.delete-button {
+  background: #e74c3c;
+  color: white;
+}
+
+.save-button {
+  background: #2ecc71;
+  color: white;
+}

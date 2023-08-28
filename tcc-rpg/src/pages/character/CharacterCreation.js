@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 import { auth, db } from "../../firebaseConfig";
+import "../../css/Characters.css";
 
 const CharacterCreation = ({ updateCharacterList }) => {
   const history = useHistory();
@@ -46,30 +47,44 @@ const CharacterCreation = ({ updateCharacterList }) => {
   };
 
   return (
-    <div>
+    <div className="character-creation-container">
       <h2>Criação de Personagem</h2>
-      <form onSubmit={handleCharacterCreation}>
-        <input
-          type="text"
-          value={characterName}
-          onChange={(e) => setCharacterName(e.target.value)}
-          placeholder="Nome do Personagem"
-        />
-        <input
-          type="text"
-          value={characterClass}
-          onChange={(e) => setCharacterClass(e.target.value)}
-          placeholder="Classe do Personagem"
-        />
-        <input
-          type="text"
-          value={characterRace}
-          onChange={(e) => setCharacterRace(e.target.value)}
-          placeholder="Raça do Personagem"
-        />
-        <button type="submit">Criar Personagem</button>
+      <form className="character-form" onSubmit={handleCharacterCreation}>
+        <div className="input-group">
+          <label htmlFor="characterName">Nome do Personagem</label>
+          <input
+            type="text"
+            id="characterName"
+            value={characterName}
+            onChange={(e) => setCharacterName(e.target.value)}
+            placeholder="Nome do Personagem"
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="characterClass">Classe do Personagem</label>
+          <input
+            type="text"
+            id="characterClass"
+            value={characterClass}
+            onChange={(e) => setCharacterClass(e.target.value)}
+            placeholder="Classe do Personagem"
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="characterRace">Raça do Personagem</label>
+          <input
+            type="text"
+            id="characterRace"
+            value={characterRace}
+            onChange={(e) => setCharacterRace(e.target.value)}
+            placeholder="Raça do Personagem"
+          />
+        </div>
+        <button type="submit" className="create-button">
+          Criar Personagem
+        </button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

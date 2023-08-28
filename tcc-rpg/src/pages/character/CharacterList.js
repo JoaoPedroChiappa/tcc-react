@@ -72,17 +72,18 @@ const CharacterList = () => {
 
   return (
     <Router>
-      <div>
+      <div className="character-list-container">
         <h2>Lista de Personagens</h2>
         <Link to="/CharacterCreation">
-          <button>Criar Novo Personagem</button>
+          <button className="create-button">Criar Novo Personagem</button>
         </Link>
-        <table>
+        <table className="character-table">
           <thead>
             <tr>
               <th>Nome</th>
               <th>Classe</th>
               <th>Raça</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -92,8 +93,16 @@ const CharacterList = () => {
                 <td>{character.class}</td>
                 <td>{character.race}</td>
                 <td>
-                  <Link to={`/CharacterEdit/${character.id}`}>Editar</Link>
-                  <button onClick={() => handleDeleteCharacter(character.id)}>
+                  <Link
+                    to={`/CharacterEdit/${character.id}`}
+                    className="edit-button"
+                  >
+                    Editar
+                  </Link>
+                  <button
+                    onClick={() => handleDeleteCharacter(character.id)}
+                    className="delete-button"
+                  >
                     Excluir
                   </button>
                 </td>

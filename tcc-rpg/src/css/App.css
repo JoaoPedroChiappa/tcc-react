@@ -1,0 +1,32 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-nav {
+  background-color: #343a40;
+  color: white;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  padding: 15px;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: white;
+}
+
+.content-wrapper {
+  flex-grow: 1;
+  padding: 20px;
+}

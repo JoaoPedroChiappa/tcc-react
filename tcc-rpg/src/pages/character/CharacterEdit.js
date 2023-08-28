@@ -50,31 +50,42 @@ const CharacterEdit = ({ updateCharacterList }) => {
   };
 
   return (
-    <div>
+    <div className="character-edit-container">
       <h2>Editar Personagem</h2>
-      <form onSubmit={handleCharacterUpdate}>
-        Nome do personagem:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Nome do Personagem"
-        />
-        Classe do Personagem:
-        <input
-          type="text"
-          value={characterClass}
-          onChange={(e) => setCharacterClass(e.target.value)}
-          placeholder="Classe do Personagem"
-        />
-        Raça do Personagem:
-        <input
-          type="text"
-          value={characterRace}
-          onChange={(e) => setCharacterRace(e.target.value)}
-          placeholder="Raça do Personagem"
-        />
-        <button type="submit">Salvar Alterações</button>
+      <form className="character-form" onSubmit={handleCharacterUpdate}>
+        <div className="input-group">
+          <label htmlFor="name">Nome do personagem:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Nome do Personagem"
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="characterClass">Classe do Personagem:</label>
+          <input
+            type="text"
+            id="characterClass"
+            value={characterClass}
+            onChange={(e) => setCharacterClass(e.target.value)}
+            placeholder="Classe do Personagem"
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="characterRace">Raça do Personagem:</label>
+          <input
+            type="text"
+            id="characterRace"
+            value={characterRace}
+            onChange={(e) => setCharacterRace(e.target.value)}
+            placeholder="Raça do Personagem"
+          />
+        </div>
+        <button type="submit" className="save-button">
+          Salvar Alterações
+        </button>
       </form>
     </div>
   );

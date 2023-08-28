@@ -1,0 +1,21 @@
+.login-container {
+  margin: 20px;
+}
+
+.login-button,
+.signup-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.input-field {
+  padding: 10px;
+  margin: 10px;
+}
+
+.error-message {
+  color: red;
+}
