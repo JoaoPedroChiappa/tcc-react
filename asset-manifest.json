@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/tcc-react/static/css/main.f1258536.css",
+    "main.js": "/tcc-react/static/js/main.2b6040ff.js",
+    "index.html": "/tcc-react/index.html",
+    "main.f1258536.css.map": "/tcc-react/static/css/main.f1258536.css.map",
+    "main.2b6040ff.js.map": "/tcc-react/static/js/main.2b6040ff.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f1258536.css",
+    "static/js/main.2b6040ff.js"
+  ]
+}
