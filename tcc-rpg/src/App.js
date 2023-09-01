@@ -30,7 +30,7 @@ const App = () => {
         <nav className="app-nav">
           <ul className="nav-list">
             <li className="nav-item">
-              <Link to="">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li className="nav-item">
               <Link to="/DiceRoller">DiceRoller</Link>
@@ -64,7 +64,7 @@ const App = () => {
 
         <div className="content-wrapper">
           <Switch>
-            <Route path="" exact component={Home} />
+            <Route path="/" exact component={Home} />
             <Route path="/DiceRoller" component={DiceRoller} />
             <Route path="/CharacterList" component={CharacterList} />
             <Route path="/Login" component={Login} />
