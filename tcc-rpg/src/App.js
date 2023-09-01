@@ -30,33 +30,39 @@ const App = () => {
         <nav className="app-nav">
           <ul className="nav-list">
             <li className="nav-item">
-              <Link to="/">Home</Link>
+              <Link to="/tcc-react/tcc-rpg/src/pages/Home">Home</Link>
             </li>
             <li className="nav-item">
-              <Link to="/tcc-react/DiceRoller">DiceRoller</Link>
+              <Link to="/tcc-react/tcc-rpg/src/pages/DiceRoller">
+                DiceRoller
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/tcc-react/CharacterList">Characters</Link>
+              <Link to="/tcc-react/tcc-rpg/src/pages/character/CharacterList">
+                Characters
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/tcc-react/StoryCreation">StoryCreation</Link>
+              <Link to="/tcc-react/tcc-rpg/src/pages/StoryCreation">
+                StoryCreation
+              </Link>
             </li>
             <li className="nav-item">
-              <Link to="/tcc-react/Tutorial">Tutorial</Link>
+              <Link to="/tcc-react/tcc-rpg/src/pages/Tutorial">Tutorial</Link>
             </li>
             <li className="nav-item">
-              <Link to="/tcc-react/ChatRoom">Chat</Link>
+              <Link to="/tcc-react/tcc-rpg/src/pages/ChatRoom">Chat</Link>
             </li>
             <li className="nav-item">
-              <Link to="/tcc-react/Amigos">Amigos</Link>
+              <Link to="/tcc-react/tcc-rpg/src/pages/Amigos">Amigos</Link>
             </li>
             {user ? (
               <li className="nav-item">
-                <Link to="/tcc-react/Login">Logout</Link>
+                <Link to="/tcc-react/tcc-rpg/src/pages/Login">Logout</Link>
               </li>
             ) : (
               <li className="nav-item">
-                <Link to="/tcc-react/Login">Login</Link>
+                <Link to="/tcc-react/tcc-rpg/src/pages/Login">Login</Link>
               </li>
             )}
           </ul>
@@ -64,20 +70,39 @@ const App = () => {
 
         <div className="content-wrapper">
           <Switch>
-            <Route path="/tcc-react/Home" exact component={Home} />
-            <Route path="/tcc-react/DiceRoller" component={DiceRoller} />
-            <Route path="/tcc-react/CharacterList" component={CharacterList} />
-            <Route path="/tcc-react/Login" component={Login} />
-            <Route path="/tcc-react/StoryCreation" component={StoryCreation} />
-            <Route path="/tcc-react/Tutorial" component={Tutorial} />
             <Route
-              path="/tcc-react/ChatRoom"
+              path="/tcc-react/tcc-rpg/src/pages/Home"
+              exact
+              component={Home}
+            />
+            <Route
+              path="/tcc-react/tcc-rpg/src/pages/DiceRoller"
+              component={DiceRoller}
+            />
+            <Route
+              path="/tcc-react/tcc-rpg/src/pages/character/CharacterList"
+              component={CharacterList}
+            />
+            <Route
+              path="/tcc-react/tcc-rpg/src/pages/Login"
+              component={Login}
+            />
+            <Route
+              path="/tcc-react/tcc-rpg/src/pages/StoryCreation"
+              component={StoryCreation}
+            />
+            <Route
+              path="/tcc-react/tcc-rpg/src/pages/Tutorial"
+              component={Tutorial}
+            />
+            <Route
+              path="/tcc-react/tcc-rpg/src/pages/ChatRoom"
               render={(props) => (
                 <ChatRoom {...props} currentUserId={user ? user.uid : null} />
               )}
             />
             <Route
-              path="/tcc-react/Amigos"
+              path="/tcc-react/tcc-rpg/src/pages/Amigos"
               render={(props) => (
                 <FriendsAdd {...props} currentUserId={user ? user.uid : null} />
               )}
