@@ -30,33 +30,33 @@ const App = () => {
         <nav className="app-nav">
           <ul className="nav-list">
             <li className="nav-item">
-              <Link to="tcc-react/">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <Link to="tcc-react/DiceRoller">DiceRoller</Link>
+              <Link to="/DiceRoller">DiceRoller</Link>
             </li>
             <li className="nav-item">
-              <Link to="tcc-react/CharacterList">Characters</Link>
+              <Link to="/CharacterList">Characters</Link>
             </li>
             <li className="nav-item">
-              <Link to="tcc-react/StoryCreation">StoryCreation</Link>
+              <Link to="/StoryCreation">StoryCreation</Link>
             </li>
             <li className="nav-item">
-              <Link to="tcc-react/Tutorial">Tutorial</Link>
+              <Link to="/Tutorial">Tutorial</Link>
             </li>
             <li className="nav-item">
-              <Link to="tcc-react/ChatRoom">Chat</Link>
+              <Link to="/ChatRoom">Chat</Link>
             </li>
             <li className="nav-item">
-              <Link to="tcc-react/Amigos">Amigos</Link>
+              <Link to="/Amigos">Amigos</Link>
             </li>
             {user ? (
               <li className="nav-item">
-                <Link to="tcc-react/Login">Logout</Link>
+                <Link to="/Login">Logout</Link>
               </li>
             ) : (
               <li className="nav-item">
-                <Link to="tcc-react/Login">Login</Link>
+                <Link to="/Login">Login</Link>
               </li>
             )}
           </ul>
@@ -64,20 +64,20 @@ const App = () => {
 
         <div className="content-wrapper">
           <Switch>
-            <Route path="tcc-react/" exact component={Home} />
-            <Route path="tcc-react/DiceRoller" component={DiceRoller} />
-            <Route path="tcc-react/CharacterList" component={CharacterList} />
-            <Route path="tcc-react/Login" component={Login} />
-            <Route path="tcc-react/StoryCreation" component={StoryCreation} />
-            <Route path="tcc-react/Tutorial" component={Tutorial} />
+            <Route path="/" exact component={Home} />
+            <Route path="/DiceRoller" component={DiceRoller} />
+            <Route path="/CharacterList" component={CharacterList} />
+            <Route path="/Login" component={Login} />
+            <Route path="/StoryCreation" component={StoryCreation} />
+            <Route path="/Tutorial" component={Tutorial} />
             <Route
-              path="tcc-react/ChatRoom"
+              path="/ChatRoom"
               render={(props) => (
                 <ChatRoom {...props} currentUserId={user ? user.uid : null} />
               )}
             />
             <Route
-              path="tcc-react/Amigos"
+              path="/Amigos"
               render={(props) => (
                 <FriendsAdd {...props} currentUserId={user ? user.uid : null} />
               )}
