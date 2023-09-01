@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, HashRouter } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 import "../src/css/App.css";
@@ -25,7 +25,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
+    <HashRouter>
       <div className="app-container">
         <nav className="app-nav">
           <ul className="nav-list">
@@ -85,7 +85,7 @@ const App = () => {
           </Switch>
         </div>
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 
