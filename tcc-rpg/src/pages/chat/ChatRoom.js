@@ -17,7 +17,7 @@ function ChatRoom({ currentUserId, initialRoomId }) {
   const [currentUserData, setCurrentUserData] = useState(null);
 
   const generateInviteLink = () => {
-    return window.location.origin + "/join/" + roomId;
+    return window.location.origin + "tcc-react/join/" + roomId;
   };
 
   const createRoom = async () => {
