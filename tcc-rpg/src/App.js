@@ -26,7 +26,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
+    <Router basename='/tcc-rpg'>
       <div className="app-container">
         <nav className="app-nav">
           <ul className="nav-list">
