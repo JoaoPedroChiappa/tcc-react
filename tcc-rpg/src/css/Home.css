@@ -54,3 +54,44 @@
   text-decoration: none;
   color: blue;
 }
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 30px;
+  }
+
+  .header {
+    font-size: 28px;
+  }
+
+  .description,
+  .feature-item,
+  .get-started-links a {
+    font-size: 16px;
+  }
+
+  .features-section,
+  .get-started-section {
+    width: 80%;
+  }
+
+  .get-started-section h2,
+  .features-section h2 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 20px;
+  }
+
+  .header {
+    font-size: 24px;
+  }
+
+  .features-section,
+  .get-started-section {
+    width: 100%;
+  }
+}

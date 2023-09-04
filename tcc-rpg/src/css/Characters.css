@@ -91,3 +91,46 @@
   background: #2ecc71;
   color: white;
 }
+
+@media (max-width: 768px) {
+  .character-creation-container,
+  .character-list-container,
+  .character-edit-container {
+    padding: 15px;
+  }
+
+  .character-form input {
+    padding: 8px;
+  }
+
+  .create-button,
+  .edit-button,
+  .delete-button,
+  .save-button {
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .character-form label {
+    font-size: 14px;
+  }
+
+  .character-creation-container,
+  .character-list-container,
+  .character-edit-container {
+    padding: 10px;
+  }
+
+  .character-form input {
+    padding: 6px;
+  }
+
+  .create-button,
+  .edit-button,
+  .delete-button,
+  .save-button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}

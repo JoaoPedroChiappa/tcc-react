@@ -29,3 +29,35 @@
   color: white;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .friends-add-container {
+    margin: 10px;
+  }
+
+  .input-field {
+    padding: 8px;
+    margin: 5px;
+  }
+
+  .add-button,
+  .remove-button {
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .friends-add-container {
+    margin: 5px;
+  }
+
+  .input-field {
+    padding: 6px;
+    margin: 5px;
+  }
+
+  .add-button,
+  .remove-button {
+    padding: 5px 10px;
+  }
+}
