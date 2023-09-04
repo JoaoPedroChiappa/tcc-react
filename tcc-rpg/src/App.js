@@ -11,7 +11,8 @@ import CharacterList from "./pages/character/CharacterList";
 import StoryCreation from "./pages/StoryCreation";
 import Tutorial from "./pages/Tutorial";
 import FriendsAdd from "./pages/FriendsAdd";
-import ChatRoom from "./pages/ChatRoom";
+import ChatRoom from "./pages/chat/ChatRoom";
+import JoinRoom from "./pages/chat/JoinChatRoom";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -80,6 +81,12 @@ const App = () => {
               path="/Amigos"
               render={(props) => (
                 <FriendsAdd {...props} currentUserId={user ? user.uid : null} />
+              )}
+            />
+            <Route
+              path="/join/:inviteCode"
+              render={(props) => (
+                <JoinRoom {...props} currentUserId={user ? user.uid : null} />
               )}
             />
           </Switch>
