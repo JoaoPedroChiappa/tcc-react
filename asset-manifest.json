@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/tcc-react/static/css/main.0e070e11.css",
-    "main.js": "/tcc-react/static/js/main.be1b87b4.js",
+    "main.js": "/tcc-react/static/js/main.70ae8695.js",
     "index.html": "/tcc-react/index.html",
     "main.0e070e11.css.map": "/tcc-react/static/css/main.0e070e11.css.map",
-    "main.be1b87b4.js.map": "/tcc-react/static/js/main.be1b87b4.js.map"
+    "main.70ae8695.js.map": "/tcc-react/static/js/main.70ae8695.js.map"
   },
   "entrypoints": [
     "static/css/main.0e070e11.css",
-    "static/js/main.be1b87b4.js"
+    "static/js/main.70ae8695.js"
   ]
 }
