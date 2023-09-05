@@ -53,10 +53,10 @@ const Home = () => {
             <h2>Comece Hoje Mesmo!</h2>
             <div className="get-started-links">
               <p>
-                Não tem uma conta? <a href="tcc-react/login">Cadastrar</a>
+                Não tem uma conta? <a href="login">Cadastrar</a>
               </p>
               <p>
-                Já é um membro? <a href="tcc-react/login">Entrar</a>
+                Já é um membro? <a href="login">Entrar</a>
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@ const Home = () => {
       </div>
 
       <Switch>
-        <Route path="tcc-react/login" component={Login} />
+        <Route path="login" component={Login} />
       </Switch>
     </Router>
   );
