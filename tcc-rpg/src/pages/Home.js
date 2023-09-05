@@ -30,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Router>
+    <Router basename='/tcc-react'>
       <div className="home-container">
         <div className="header">Bem-vindo ao Gerenciador de RPG</div>
         <div className="description">
