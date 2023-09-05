@@ -30,7 +30,7 @@ const Home = () => {
   }, []);
 
   return (
-    <Router basename='/tcc-react'>
+    <Router basename="/tcc-react">
       <div className="home-container">
         <div className="header">Bem-vindo ao Gerenciador de RPG</div>
         <div className="description">
@@ -53,10 +53,10 @@ const Home = () => {
             <h2>Comece Hoje Mesmo!</h2>
             <div className="get-started-links">
               <p>
-                Não tem uma conta? <a href="/login">Cadastrar</a>
+                Não tem uma conta? <a href="tcc-react/login">Cadastrar</a>
               </p>
               <p>
-                Já é um membro? <a href="/login">Entrar</a>
+                Já é um membro? <a href="tcc-react/login">Entrar</a>
               </p>
             </div>
           </div>
@@ -72,7 +72,7 @@ const Home = () => {
       </div>
 
       <Switch>
-        <Route path="/login" component={Login} />
+        <Route path="tcc-react/login" component={Login} />
       </Switch>
     </Router>
   );
