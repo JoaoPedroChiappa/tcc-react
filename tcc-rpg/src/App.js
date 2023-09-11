@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";
 import Login from "./pages/Login";
 import CharacterList from "./pages/character/CharacterList";
-import StoryCreation from "./pages/StoryCreation";
 import Tutorial from "./pages/Tutorial";
 import FriendsAdd from "./pages/FriendsAdd";
 import ChatRoom from "./pages/chat/ChatRoom";
@@ -26,7 +25,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router basename='/tcc-react'>
+    <Router basename="/tcc-react">
       <div className="app-container">
         <nav className="app-nav">
           <ul className="nav-list">
@@ -38,9 +37,6 @@ const App = () => {
             </li>
             <li className="nav-item">
               <Link to="/CharacterList">Characters</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/StoryCreation">StoryCreation</Link>
             </li>
             <li className="nav-item">
               <Link to="/Tutorial">Tutorial</Link>
@@ -69,7 +65,6 @@ const App = () => {
             <Route path="/DiceRoller" component={DiceRoller} />
             <Route path="/CharacterList" component={CharacterList} />
             <Route path="/Login" component={Login} />
-            <Route path="/StoryCreation" component={StoryCreation} />
             <Route path="/Tutorial" component={Tutorial} />
             <Route
               path="/ChatRoom"

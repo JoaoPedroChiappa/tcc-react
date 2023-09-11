@@ -65,23 +65,56 @@ const CharacterEdit = ({ updateCharacterList }) => {
         </div>
         <div className="input-group">
           <label htmlFor="characterClass">Classe do Personagem:</label>
-          <input
-            type="text"
+          <select
             id="characterClass"
             value={characterClass}
             onChange={(e) => setCharacterClass(e.target.value)}
-            placeholder="Classe do Personagem"
-          />
+          >
+            <option value="">Selecione uma classe</option>
+            {[
+              "Bárbaro",
+              "Bardo",
+              "Bruxo",
+              "Clérigo",
+              "Druida",
+              "Feiticeiro",
+              "Guerreiro",
+              "Ladino",
+              "Mago",
+              "Monge",
+              "Paladino",
+              "Ranger",
+            ].map((cls) => (
+              <option key={cls} value={cls}>
+                {cls}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="input-group">
           <label htmlFor="characterRace">Raça do Personagem:</label>
-          <input
-            type="text"
+          <select
             id="characterRace"
             value={characterRace}
             onChange={(e) => setCharacterRace(e.target.value)}
-            placeholder="Raça do Personagem"
-          />
+          >
+            <option value="">Selecione uma raça</option>
+            {[
+              "Anão",
+              "Dragonborn",
+              "Elfo",
+              "Gnomo",
+              "Halfling",
+              "Humano",
+              "Meio-elfo",
+              "Meio-orcm",
+              "Tiefling",
+            ].map((race) => (
+              <option key={race} value={race}>
+                {race}
+              </option>
+            ))}
+          </select>
         </div>
         <button type="submit" className="save-button">
           Salvar Alterações

@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import CharacterCreation from "./CharacterCreation";
 import CharacterEdit from "./CharacterEdit";
+import CharacterDetail from "./CharacterDetail";
 
 const CharacterList = () => {
   const [characters, setCharacters] = useState([]);
@@ -94,6 +95,12 @@ const CharacterList = () => {
                 <td>{character.race}</td>
                 <td>
                   <Link
+                    to={`/CharacterDetail/${character.id}`}
+                    className="detail-button"
+                  >
+                    Detalhe
+                  </Link>
+                  <Link
                     to={`/CharacterEdit/${character.id}`}
                     className="edit-button"
                   >
@@ -113,6 +120,15 @@ const CharacterList = () => {
       </div>
 
       <Switch>
+        <Route
+          path="/CharacterDetail/:characterId"
+          render={(props) => (
+            <CharacterDetail
+              {...props}
+              updateCharacterList={updateCharacterList}
+            />
+          )}
+        />
         <Route
           path="/CharacterCreation"
           render={(props) => (
