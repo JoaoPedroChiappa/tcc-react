@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   collection,
   getDocs,
@@ -9,67 +9,52 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 
 import CharacterCreation from "./CharacterCreation";
 import CharacterEdit from "./CharacterEdit";
 import CharacterDetail from "./CharacterDetail";
 
+const fetchCharacters = async () => {
+  const user = auth.currentUser;
+  if (!user) return [];
+
+  const charactersQuery = query(
+    collection(db, "characters"),
+    where("userId", "==", user.uid)
+  );
+  const snapshot = await getDocs(charactersQuery);
+  return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+};
+
 const CharacterList = () => {
-  const [characters, setCharacters] = useState([]);
-
-  const updateCharacterList = async () => {
-    const user = auth.currentUser;
-    if (user) {
-      const charactersQuery = query(
-        collection(db, "characters"),
-        where("userId", "==", user.uid)
-      );
-
-      try {
-        const querySnapshot = await getDocs(charactersQuery);
-        const characterList = [];
-        querySnapshot.forEach((doc) => {
-          characterList.push({ id: doc.id, ...doc.data() });
-        });
-        setCharacters(characterList);
-      } catch (error) {
-        console.error("Error fetching characters: ", error);
-      }
+  const queryClient = useQueryClient();
+  const { data: characters, isLoading } = useQuery(
+    "characters",
+    fetchCharacters,
+    {
+      staleTime: 600000, // 10 minutes
     }
-  };
+  );
+
+  const deleteCharacterMutation = useMutation(
+    (characterId) => deleteDoc(doc(db, "characters", characterId)),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("characters");
+      },
+    }
+  );
 
   const handleDeleteCharacter = async (characterId) => {
     try {
-      await deleteDoc(doc(db, "characters", characterId));
-      updateCharacterList();
+      await deleteCharacterMutation.mutateAsync(characterId);
     } catch (error) {
       console.error("Error deleting character: ", error);
     }
   };
 
-  useEffect(() => {
-    // Verifica se o usuário está autenticado
-    const user = auth.currentUser;
-    if (user) {
-      // Consulta os personagens associados ao usuário logado
-      const charactersQuery = query(
-        collection(db, "characters"),
-        where("userId", "==", user.uid)
-      );
-
-      getDocs(charactersQuery)
-        .then((querySnapshot) => {
-          const characterList = [];
-          querySnapshot.forEach((doc) => {
-            characterList.push({ id: doc.id, ...doc.data() });
-          });
-          setCharacters(characterList);
-        })
-        .catch((error) => {
-          console.error("Error fetching characters: ", error);
-        });
-    }
-  });
+  if (isLoading) return <div>Carregando...</div>;
 
   return (
     <Router>
@@ -122,30 +107,15 @@ const CharacterList = () => {
       <Switch>
         <Route
           path="/CharacterDetail/:characterId"
-          render={(props) => (
-            <CharacterDetail
-              {...props}
-              updateCharacterList={updateCharacterList}
-            />
-          )}
+          render={(props) => <CharacterDetail />}
         />
         <Route
           path="/CharacterCreation"
-          render={(props) => (
-            <CharacterCreation
-              {...props}
-              updateCharacterList={updateCharacterList}
-            />
-          )}
+          render={(props) => <CharacterCreation />}
         />
         <Route
           path="/CharacterEdit/:characterId"
-          render={(props) => (
-            <CharacterEdit
-              {...props}
-              updateCharacterList={updateCharacterList}
-            />
-          )}
+          render={(props) => <CharacterEdit />}
         />
       </Switch>
     </Router>

@@ -2,28 +2,38 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { useQuery } from "react-query";
 import "../../css/Characters.css";
+
+const fetchCharacterDetail = async (characterId) => {
+  const characterRef = doc(db, "characters", characterId);
+  const docSnapshot = await getDoc(characterRef);
+  if (!docSnapshot.exists) {
+    throw new Error("Character not found");
+  }
+  return docSnapshot.data();
+};
 
 const CharacterDetail = () => {
   const { characterId } = useParams();
-  const [character, setCharacter] = useState(null);
+  const {
+    data: character,
+    isLoading,
+    isError,
+  } = useQuery(["character", characterId], () =>
+    fetchCharacterDetail(characterId)
+  );
 
-  useEffect(() => {
-    const characterRef = doc(db, "characters", characterId);
-
-    getDoc(characterRef)
-      .then((docSnapshot) => {
-        if (docSnapshot.exists()) {
-          setCharacter(docSnapshot.data());
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching character details: ", error);
-      });
-  }, [characterId]);
-
-  if (!character) {
+  if (isLoading) {
     return <div>Carregando detalhes do personagem...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div>
+        Erro ao carregar detalhes do personagem. Por favor, tente novamente.
+      </div>
+    );
   }
 
   return (

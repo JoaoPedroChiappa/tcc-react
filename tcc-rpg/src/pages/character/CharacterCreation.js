@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { auth, db } from "../../firebaseConfig";
 import "../../css/Characters.css";
 
-const CharacterCreation = ({ updateCharacterList }) => {
+const CharacterCreation = () => {
   const history = useHistory();
   const [characterName, setCharacterName] = useState("");
   const [characterClass, setCharacterClass] = useState("");
@@ -68,7 +68,6 @@ const CharacterCreation = ({ updateCharacterList }) => {
         setCharacterRace("");
 
         // Redirecione para a página de visualização de personagens
-        await updateCharacterList();
         history.push("/CharacterList");
       } else {
         setError("Usuário não está logado.");

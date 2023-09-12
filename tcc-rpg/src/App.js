@@ -4,6 +4,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig";
 import "../src/css/App.css";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+
 import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";
 import Login from "./pages/Login";
@@ -15,6 +17,7 @@ import JoinRoom from "./pages/chat/JoinChatRoom";
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const queryClient = new QueryClient();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -61,29 +64,34 @@ const App = () => {
 
         <div className="content-wrapper">
           <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/DiceRoller" component={DiceRoller} />
-            <Route path="/CharacterList" component={CharacterList} />
-            <Route path="/Login" component={Login} />
-            <Route path="/Tutorial" component={Tutorial} />
-            <Route
-              path="/ChatRoom"
-              render={(props) => (
-                <ChatRoom {...props} currentUserId={user ? user.uid : null} />
-              )}
-            />
-            <Route
-              path="/Amigos"
-              render={(props) => (
-                <FriendsAdd {...props} currentUserId={user ? user.uid : null} />
-              )}
-            />
-            <Route
-              path="/join/:inviteCode"
-              render={(props) => (
-                <JoinRoom {...props} currentUserId={user ? user.uid : null} />
-              )}
-            />
+            <QueryClientProvider client={queryClient}>
+              <Route path="/" exact component={Home} />
+              <Route path="/DiceRoller" component={DiceRoller} />
+              <Route path="/CharacterList" component={CharacterList} />
+              <Route path="/Login" component={Login} />
+              <Route path="/Tutorial" component={Tutorial} />
+              <Route
+                path="/ChatRoom"
+                render={(props) => (
+                  <ChatRoom {...props} currentUserId={user ? user.uid : null} />
+                )}
+              />
+              <Route
+                path="/Amigos"
+                render={(props) => (
+                  <FriendsAdd
+                    {...props}
+                    currentUserId={user ? user.uid : null}
+                  />
+                )}
+              />
+              <Route
+                path="/join/:inviteCode"
+                render={(props) => (
+                  <JoinRoom {...props} currentUserId={user ? user.uid : null} />
+                )}
+              />
+            </QueryClientProvider>
           </Switch>
         </div>
       </div>
