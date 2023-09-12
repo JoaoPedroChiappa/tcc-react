@@ -1,35 +1,69 @@
 import React, { useState } from "react";
+import { useSpring, animated } from 'react-spring';
 import "../css/Dice.css";
 
-function DiceRoller() {
-  const [result, setResult] = useState(null);
+function Die({ sides, result, setResult }) {
+  const [rolling, setRolling] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const rollDice = (sides) => {
-    const randomNumber = Math.floor(Math.random() * sides) + 1;
-    setResult(randomNumber);
+  const rollDie = () => {
+    if (!rolling) {
+      setRolling(true);
+      setResult(null);
+      setVisible(true);
+
+      // Simule um lançamento de dados
+      let rollInterval = setInterval(() => {
+        setResult(Math.floor(Math.random() * sides) + 1);
+      }, 800); // Atualiza o resultado a cada 100 ms
+
+      // Simule uma rolagem de dados por 1 segundo
+      setTimeout(() => {
+        clearInterval(rollInterval);
+        setRolling(false);
+      }, 1000); // Tempo da animação
+    }
   };
+
+  const animationProps = useSpring({
+    opacity: visible ? (result === null ? 0.5 : 1) : 0,
+    transform: `rotate(${result === null ? 0 : 720}deg)`,
+  });
 
   return (
     <div>
-      <h1>Dice Roller</h1>
-      <button className="d6" onClick={() => rollDice(6)}>
-        Roll d6
+      <button onClick={rollDie} disabled={rolling}>
+        Roll {sides}-sided Die
       </button>
-      <button className="d10" onClick={() => rollDice(10)}>
-        Roll d10
-      </button>
-      <button className="d20" onClick={() => rollDice(20)}>
-        Roll d20
-      </button>
-      <button className="d100" onClick={() => rollDice(100)}>
-        Roll d100
-      </button>
+      <animated.div
+        style={{
+          ...animationProps,
+          width: '100px',
+          height: '100px',
+          backgroundColor: 'blue',
+          color: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '24px',
+        }}
+      >
+        {rolling ? (result !== null ? result : "") : (result !== null ? result : "")}
+      </animated.div>
+    </div>
+  );
+}
 
-      {result && (
-        <div>
-          <h2>Result: {result}</h2>
-        </div>
-      )}
+function DiceRoller() {
+  const [result4, setResult4] = useState(null);
+  const [result6, setResult6] = useState(null);
+  const [result20, setResult20] = useState(null);
+
+  return (
+    <div>
+      <Die sides={4} result={result4} setResult={setResult4} />
+      <Die sides={6} result={result6} setResult={setResult6} />
+      <Die sides={20} result={result20} setResult={setResult20} />
     </div>
   );
 }
