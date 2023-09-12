@@ -1,3 +1,10 @@
+body,
+button,
+input,
+select {
+  font-family: Arial, sans-serif; /* Adicione sua fonte preferida aqui */
+}
+
 .character-creation-container {
   background: #f4f4f4;
   border-radius: 8px;
@@ -65,12 +72,16 @@
 .create-button,
 .edit-button,
 .delete-button,
-.save-button {
+.save-button,
+.detail-button {
   padding: 8px 16px;
   margin: 5px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  text-decoration: none; /* Remove o sublinhado dos links */
+  display: inline-block; /* Faz com que os links se comportem como botões */
+  color: white; /* Cor do texto dos links e botões */
 }
 
 .create-button {
@@ -78,14 +89,13 @@
   color: white;
 }
 
-.edit-button {
-  background: #f4e542;
-  color: black;
+.detail-button {
+  background: #3498db; /* Azul */
 }
 
-.detail-button {
-  background: #3498db;
-  color: white;
+.edit-button {
+  background: #f4e542; /* Amarelo */
+  color: black; /* Cor do texto para o botão Editar */
 }
 
 .delete-button {
@@ -133,6 +143,35 @@
   color: white;
   padding: 5px 10px;
   border-radius: 50%;
+}
+
+/* Efeito hover para os botões */
+.create-button,
+.edit-button,
+.delete-button,
+.save-button,
+.detail-button {
+  transition: background-color 0.3s ease; /* Transição suave */
+}
+
+.create-button:hover {
+  background: #0069d9;
+}
+
+.detail-button:hover {
+  background: #2384c6; /* Um azul um pouco mais escuro */
+}
+
+.edit-button:hover {
+  background: #e3d235; /* Um amarelo um pouco mais escuro */
+}
+
+.delete-button:hover {
+  background: #d43f00; /* Um vermelho um pouco mais escuro */
+}
+
+.save-button:hover {
+  background: #28b865; /* Um verde um pouco mais escuro */
 }
 
 @media (max-width: 768px) {

@@ -83,7 +83,7 @@ const CharacterList = () => {
                     to={`/CharacterDetail/${character.id}`}
                     className="detail-button"
                   >
-                    Detalhe
+                    Ver
                   </Link>
                   <Link
                     to={`/CharacterEdit/${character.id}`}
