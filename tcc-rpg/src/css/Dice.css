@@ -32,8 +32,8 @@ button:active {
     justify-content: space-evenly; /* Distribute the dice evenly on the page */
   }
 
-  .content-wrapper {
-    padding: 65px !important;
+  .diceWrapper {
+    padding-top: 50px;
   }
 
   /* Individual Die Container */
