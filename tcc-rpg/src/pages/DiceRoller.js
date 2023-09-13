@@ -29,7 +29,7 @@ function Die({ sides, result, setResult }) {
   };
 
   const animationProps = useSpring({
-    opacity: visible ? (result === null ? 0.5 : 1) : 0,
+    opacity: visible ? (result === null ? 0.5 : 1) : 0.5,
     transform: `rotate(${result === null ? 0 : 720}deg)`,
   });
 
