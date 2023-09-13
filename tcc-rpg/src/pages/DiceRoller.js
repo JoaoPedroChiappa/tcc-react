@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated } from "react-spring";
 import "../css/Dice.css";
+
+import d6 from "../assets/d6.png";
+import d10 from "../assets/d10.png";
+import d20 from "../assets/d20.png";
 
 function Die({ sides, result, setResult }) {
   const [rolling, setRolling] = useState(false);
@@ -12,17 +16,16 @@ function Die({ sides, result, setResult }) {
       setResult(null);
       setVisible(true);
 
-      // Simule um lançamento de dados
       let rollInterval = setInterval(() => {
         setResult(Math.floor(Math.random() * sides) + 1);
-      }, 800); // Atualiza o resultado a cada 100 ms
+      }, 800);
 
-      // Simule uma rolagem de dados por 1 segundo
       setTimeout(() => {
         clearInterval(rollInterval);
         setRolling(false);
-      }, 1000); // Tempo da animação
+      }, 1000);
     }
+    console.log(result);
   };
 
   const animationProps = useSpring({
@@ -30,39 +33,65 @@ function Die({ sides, result, setResult }) {
     transform: `rotate(${result === null ? 0 : 720}deg)`,
   });
 
+  const diceImages = {
+    6: d6,
+    10: d10,
+    20: d20,
+  };
+
+  const diceSize = sides === 6 ? "95%" : "100%";
+
   return (
-    <div>
+    <div style={{ display: "inline-block", margin: "20px 20px" }}>
       <button onClick={rollDie} disabled={rolling}>
         Roll {sides}-sided Die
       </button>
-      <animated.div
+      <div
         style={{
-          ...animationProps,
-          width: '100px',
-          height: '100px',
-          backgroundColor: 'blue',
-          color: 'white',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '24px',
+          position: "relative",
+          width: "200px",
+          height: "200px",
+          marginTop: "10px",
         }}
       >
-        {rolling ? (result !== null ? result : "") : (result !== null ? result : "")}
-      </animated.div>
+        <animated.img
+          src={diceImages[sides]}
+          alt={"dice"}
+          style={{ ...animationProps, width: diceSize, height: diceSize }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            color: "black",
+            fontSize: "25px",
+            fontWeight: "bold",
+          }}
+        >
+          {!rolling && result}
+        </div>
+      </div>
     </div>
   );
 }
 
 function DiceRoller() {
-  const [result4, setResult4] = useState(null);
   const [result6, setResult6] = useState(null);
+  const [result10, setResult10] = useState(null);
   const [result20, setResult20] = useState(null);
 
   return (
-    <div>
-      <Die sides={4} result={result4} setResult={setResult4} />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Die sides={6} result={result6} setResult={setResult6} />
+      <Die sides={10} result={result10} setResult={setResult10} />
       <Die sides={20} result={result20} setResult={setResult20} />
     </div>
   );
