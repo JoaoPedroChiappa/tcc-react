@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/tcc-react/static/css/main.0e070e11.css",
-    "main.js": "/tcc-react/static/js/main.894bd656.js",
+    "main.css": "/tcc-react/static/css/main.111ec5ac.css",
+    "main.js": "/tcc-react/static/js/main.ccdaf32b.js",
+    "static/media/d20.png": "/tcc-react/static/media/d20.43d67c9414e9a347f3b1.png",
     "index.html": "/tcc-react/index.html",
-    "main.0e070e11.css.map": "/tcc-react/static/css/main.0e070e11.css.map",
-    "main.894bd656.js.map": "/tcc-react/static/js/main.894bd656.js.map"
+    "main.111ec5ac.css.map": "/tcc-react/static/css/main.111ec5ac.css.map",
+    "main.ccdaf32b.js.map": "/tcc-react/static/js/main.ccdaf32b.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e070e11.css",
-    "static/js/main.894bd656.js"
+    "static/css/main.111ec5ac.css",
+    "static/js/main.ccdaf32b.js"
   ]
 }
