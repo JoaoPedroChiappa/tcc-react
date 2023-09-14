@@ -1,14 +1,16 @@
 {
   "files": {
-    "main.css": "/tcc-react/static/css/main.dc116529.css",
-    "main.js": "/tcc-react/static/js/main.29a10c75.js",
+    "main.css": "/tcc-react/static/css/main.979eb4b5.css",
+    "main.js": "/tcc-react/static/js/main.9765dc4a.js",
+    "static/media/jogadoresrpg.png": "/tcc-react/static/media/jogadoresrpg.846a6e98e698967c317f.png",
+    "static/media/arcanewarrior.png": "/tcc-react/static/media/arcanewarrior.3178c22fd4f808cb322e.png",
     "static/media/d20.png": "/tcc-react/static/media/d20.43d67c9414e9a347f3b1.png",
     "index.html": "/tcc-react/index.html",
-    "main.dc116529.css.map": "/tcc-react/static/css/main.dc116529.css.map",
-    "main.29a10c75.js.map": "/tcc-react/static/js/main.29a10c75.js.map"
+    "main.979eb4b5.css.map": "/tcc-react/static/css/main.979eb4b5.css.map",
+    "main.9765dc4a.js.map": "/tcc-react/static/js/main.9765dc4a.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc116529.css",
-    "static/js/main.29a10c75.js"
+    "static/css/main.979eb4b5.css",
+    "static/js/main.9765dc4a.js"
   ]
 }
