@@ -61,7 +61,7 @@ body::-webkit-scrollbar-thumb {
 
 .card-content-right {
   flex: 1;
-  margin-top: 120px;
+  margin-top: 200px;
 }
 
 .card-content-left img {
@@ -128,7 +128,7 @@ body::-webkit-scrollbar-thumb {
   .card-cadastro,
   .features-section {
     width: 100%;
-    margin-left: 0;
+    margin-left: -22px;
   }
 
   .card-content {
@@ -150,6 +150,10 @@ body::-webkit-scrollbar-thumb {
     display: block;
     margin: 20px auto 0; /* Centraliza o botão horizontalmente */
   }
+
+  .card-content-left img {
+    height: 50vh; /* Ajusta a altura da imagem */
+  }
 }
 
 /* Para telas com largura até 480px (smartphones) */
@@ -160,5 +164,13 @@ body::-webkit-scrollbar-thumb {
 
   .card p {
     font-size: 16px;
+  }
+
+  .card-image {
+    padding: 40px 10px; /* Aumenta o padding para garantir espaço para o texto */
+  }
+
+  .card-content-left img {
+    height: 30vh; /* Ajusta a altura da imagem para dispositivos muito pequenos */
   }
 }

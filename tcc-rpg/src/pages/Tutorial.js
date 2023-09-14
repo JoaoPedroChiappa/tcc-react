@@ -1,4 +1,5 @@
 import React from 'react';
+import "../css/Tutorial.css";
 
 const Tutorial = () => {
   return (

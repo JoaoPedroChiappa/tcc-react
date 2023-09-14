@@ -1,0 +1,42 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  body {
+    background-color: #202733;
+  }
+  
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #599ce8;
+  }
+  
+  p {
+    font-size: 18px;
+    line-height: 1.5; /* Melhor espaçamento entre linhas para leitura */
+    color: #d6e5ef;
+    padding: 20px;
+    margin: 0 auto; /* Centralizar horizontalmente */
+    max-width: 800px; /* Limita a largura para uma leitura mais confortável */
+  }
+  
+  @media (max-width: 768px) {
+    p {
+      font-size: 16px;
+      padding: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 28px;
+    }
+  
+    p {
+      font-size: 14px;
+    }
+  }
+  

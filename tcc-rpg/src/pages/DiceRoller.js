@@ -43,8 +43,8 @@ function Die({ sides, result, setResult }) {
 
   return (
     <div style={{ display: "inline-block", margin: "20px 20px" }}>
-      <button onClick={rollDie} disabled={rolling}>
-        Roll {sides}-sided Die
+      <button onClick={rollDie} disabled={rolling} style={{marginLeft: "40px"}}>
+        Rolar D{sides}
       </button>
       <div
         style={{
@@ -65,7 +65,7 @@ function Die({ sides, result, setResult }) {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            color: "black",
+            color: "#599ce8",
             fontSize: "25px",
             fontWeight: "bold",
           }}

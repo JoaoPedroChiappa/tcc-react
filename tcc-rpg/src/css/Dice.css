@@ -1,3 +1,7 @@
+body {
+  background-color: #202733;
+}
+
 button {
   cursor: pointer;
   padding: 0.75em 1.25em;
@@ -9,8 +13,8 @@ button {
   transition: transform 0.1s, box-shadow 0.2s;
   box-shadow: 0.125em 0.125em 0.625em rgba(0, 0, 0, 0.2);
   text-shadow: 0.0625em 0.0625em 0.125em rgba(0, 0, 0, 0.2);
-  background-color: #007bff;
-  color: white;
+  background-color: #354155; /* Modificado para manter a consistência */
+  color: #d6e5ef;
 }
 
 button:hover {
@@ -21,6 +25,13 @@ button:hover {
 button:active {
   transform: translateY(0.0625em);
   box-shadow: 0.125em 0.125em 0.5em rgba(0, 0, 0, 0.25);
+}
+
+.diceWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Adiciona um espaço entre os dados */
 }
 
 /* Responsive Styling */
