@@ -124,6 +124,10 @@ body::-webkit-scrollbar-thumb {
   margin-left: 10%;
 }
 
+.features-section p{
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .card-cadastro,
   .features-section {

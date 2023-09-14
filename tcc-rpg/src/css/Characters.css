@@ -7,19 +7,6 @@ body, button, input, select {
   background-color: #202733;
 }
 
-body::-webkit-scrollbar {
-  width: 12px;
-}
-body::-webkit-scrollbar-track {
-  background: #171c25;
-}
-body::-webkit-scrollbar-thumb {
-  background-color: #354155;
-  border-radius: 10px;
-  border: 3px solid #354155;
-}
-
-/* Typography */
 h2 {
   color: #599ce8;
 }
@@ -28,7 +15,6 @@ h2 {
   color: #d6e5ef;
 }
 
-/* Cards & Containers */
 .character-creation-container, 
 .character-list-container, 
 .character-edit-container {
@@ -38,7 +24,6 @@ h2 {
   padding: 20px;
 }
 
-/* Buttons & Links */
 .create-button,
 .edit-button,
 .delete-button,
@@ -69,11 +54,35 @@ h2 {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  color: white; /* Set the text color to white */
-  text-decoration: none; /* Remove the underline from the link */
-  background-color: #202733;
+  color: white; 
+  text-decoration: none; 
+  background-color: #3f4f69;
 }
 
+.character-detail-container h2 {
+  color: #599ce8;
+  margin-bottom: 20px;
+}
+
+.character-detail-container p {
+  color: #d6e5ef;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.character-detail-container strong {
+  font-weight: bold;
+}
+
+.character-detail-container {
+  background-color: #202733;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: #d6e5ef;
+  max-width: 800px;
+  margin: 20px auto; 
+}
 
 .attributes-row {
   display: flex;
@@ -83,8 +92,8 @@ h2 {
 
 .attribute-box {
   flex: 1;
-  background: #f9f9f9;
-  padding: 50px;
+  background: #202733;
+  padding: 40px;
   border: 1px solid #ccc;
   border-radius: 4px;
   text-align: center;
@@ -106,23 +115,23 @@ h2 {
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  background: #2ecc71;
+  background: #4c84c4;
   color: white;
+  font-weight: bold;
   padding: 5px 10px;
   border-radius: 50%;
 }
 
-/* Efeito hover para os botões */
 .create-button,
 .edit-button,
 .delete-button,
 .save-button,
 .detail-button {
-  transition: background-color 0.3s ease; /* Transição suave */
+  transition: background-color 0.3s ease; 
 }
 
 .detail-button, .edit-button {
-  margin-right: 20px; /* Adjust the value as needed */
+  margin-right: 20px; 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -131,17 +140,21 @@ h2 {
 }
 
 .detail-button:hover, .edit-button:hover {
-  background: #0069d9; /* Um azul um pouco mais escuro */
+  background: #0069d9;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+.delete-button{
+  background-color: #3f4f69!important;
+  margin-left: 0px;
+}
 
 .delete-button:hover {
-  background: #0069d9; /* Um vermelho um pouco mais escuro */
+  background: #0069d9;
 }
 
 .save-button:hover {
-  background: #28b865; /* Um verde um pouco mais escuro */
+  background: #28b865;
 }
 
 .character-table {
@@ -150,13 +163,13 @@ h2 {
 }
 
 .character-table th, .character-table td {
-  border: 1px solid #354155; /* Set border for the table headers and cells */
+  border: 1px solid #354155; 
   padding: 8px;
   text-align: left;
 }
 
 .character-table tr:nth-child(even) {
-  background-color: #2b3545; /* Add a different background color for even rows for better readability */
+  background-color: #2b3545; 
 }
 
 @media (max-width: 768px) {
@@ -176,9 +189,29 @@ h2 {
   .save-button {
     padding: 6px 12px;
   }
+
+  .attributes-row {
+    flex-direction: column;
+  }
+
+  .attribute-box {
+    margin-bottom: 10px;
+  }
+
+  .detail-button{
+    margin-bottom: 10px!important;
+  }
 }
 
 @media (max-width: 480px) {
+
+  .character-detail-container {
+    padding: 10px;
+  }
+
+  .attribute-box {
+    padding: 15px;
+  }
 
   h2 {
     font-size: 20px;
@@ -204,14 +237,13 @@ h2 {
   }
 
   .character-table {
-    min-width: 600px; /* Adjust based on your needs */
+    min-width: 600px;
   }
 
   .create-button, .edit-button, .delete-button, .save-button {
     padding: 5px 10px;
     font-size: 12px;
   }
-
 
   .detail-button, .edit-button, .delete-button {
     margin-bottom: 10px;
