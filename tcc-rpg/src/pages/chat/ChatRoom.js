@@ -8,13 +8,17 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
+import { useHistory } from "react-router-dom";
 import { db, auth } from "../../firebaseConfig";
 
 function ChatRoom({ currentUserId, initialRoomId }) {
-  const [roomId, setRoomId] = useState(initialRoomId || "");
+  const [roomId, setRoomId] = useState(
+    initialRoomId || localStorage.getItem("roomId") || ""
+  );
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [currentUserData, setCurrentUserData] = useState(null);
+  const history = useHistory();
 
   const generateInviteLink = () => {
     return window.location.origin + "/tcc-react/join/" + roomId;
@@ -27,6 +31,7 @@ function ChatRoom({ currentUserId, initialRoomId }) {
         members: [currentUserId],
       });
       setRoomId(roomRef.id);
+      localStorage.setItem("roomId", roomRef.id);
       generateInviteLink();
     } catch (error) {
       console.error("Erro ao criar sala:", error);
@@ -50,7 +55,17 @@ function ChatRoom({ currentUserId, initialRoomId }) {
     }
   };
 
+  const handleLeaveRoom = () => {
+    setRoomId("");
+    localStorage.removeItem("roomId");
+    history.push("/");
+  };
+
   useEffect(() => {
+    if (!roomId && localStorage.getItem("roomId")) {
+      setRoomId(localStorage.getItem("roomId"));
+    }
+
     const userLogin = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = doc(db, "users", user.uid);
@@ -109,6 +124,8 @@ function ChatRoom({ currentUserId, initialRoomId }) {
             placeholder="Digite sua mensagem"
           />
           <button onClick={handleSendMessage}>Enviar</button>
+          {/* Botão para sair da sala */}
+          <button onClick={handleLeaveRoom}>Sair da Sala</button>
         </div>
       )}
     </div>

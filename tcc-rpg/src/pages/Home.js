@@ -1,79 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../firebaseConfig";
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import "../css/Home.css";
-
-import Login from "./Login";
+import jogadoresrpg from "../assets/images/jogadoresrpg.png";
+import arcanewarrior from "../assets/images/arcanewarrior.png";
 
 const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUserData, setCurrentUserData] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        setIsLoggedIn(true);
-        const userRef = doc(db, "users", user.uid);
-        const userDataSnapshot = await getDoc(userRef);
-        if (userDataSnapshot.exists) {
-          setCurrentUserData(userDataSnapshot.data());
-        }
-      } else {
-        setCurrentUserData(null);
-        setIsLoggedIn(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
   return (
     <Router basename="/tcc-react">
       <div className="home-container">
-        <div className="header">Bem-vindo ao Gerenciador de RPG</div>
-        <div className="description">
-          O lugar para se conectar com amigos, compartilhar momentos e criar
-          memórias.
+        <div
+          className="card card-image"
+          style={{ backgroundImage: `url(${jogadoresrpg})` }}
+        >
+          <h1 className="title-color">Gerenciador de RPG de Mesa Online</h1>
+          <p className="subtitle-color">
+            Leve sua experiência de RPG de mesa para o próximo nível com o nosso
+            gerenciador online. Crie personagens personalizados, jogue com
+            amigos, rolem dados e muito mais. Experimente agora!
+          </p>
+        </div>
+
+        <div className="card-cadastro card-content">
+          <div className="card-content-left">
+            <img src={arcanewarrior} alt="Imagem" />
+          </div>
+          <div className="card-content-right">
+            <h2 className="title-color">Cadastre-se e Comece a Jogar</h2>
+            <p className="subtitle-color">
+              Cadastre-se agora e comece a jogar instantaneamente com outros
+              jogadores de RPG de mesa de todo o mundo. Crie um perfil para
+              identificar seus amigos e veja o perfil deles. Adicione outros
+              jogadores como amigos e comece a jogar hoje mesmo!
+            </p>
+            <a href="Login" className="signup-button">
+              Cadastre-se
+            </a>
+          </div>
         </div>
 
         <div className="features-section">
-          <h2>Recursos</h2>
-          <ul className="features-list">
-            <li className="feature-item">Criar Personagens</li>
-            <li className="feature-item">Compartilhar Histórias Épicas</li>
-            <li className="feature-item">Conectar com Amigos</li>
-            <li className="feature-item">Criar e Participar de Grupos</li>
-          </ul>
+          <h2 className="title-color">Bem-vindo ao Mundo do RPG de Mesa!</h2>
+          <p className="subtitle-color">
+            Se você é novo no RPG de mesa, não se preocupe! Nós temos um{" "}
+            <a href="tutorial" className="link">
+              Tutorial
+            </a>{" "}
+            completo para você começar a jogar em pouco tempo. Aprenda os
+            conceitos básicos do jogo, como criar uma história emocionante e
+            como interpretar seu personagem ao longo do jogo. Boa sorte!
+          </p>
         </div>
-
-        {!isLoggedIn ? (
-          <div className="get-started-section">
-            <h2>Comece Hoje Mesmo!</h2>
-            <div className="get-started-links">
-              <p>
-                Não tem uma conta? <a href="login">Cadastrar</a>
-              </p>
-              <p>
-                Já é um membro? <a href="login">Entrar</a>
-              </p>
-            </div>
-          </div>
-        ) : (
-          <div className="get-started-section">
-            <h2>Bem-vindo de volta, {currentUserData?.username}!</h2>
-            <p>
-              Estamos felizes por tê-lo aqui novamente. Vá em frente e
-              conecte-se com seus amigos!
-            </p>
-          </div>
-        )}
       </div>
-
-      <Switch>
-        <Route path="login" component={Login} />
-      </Switch>
     </Router>
   );
 };

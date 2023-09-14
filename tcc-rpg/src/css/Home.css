@@ -1,97 +1,164 @@
-/* Home.css */
-
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px;
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.header {
+body {
+  background-color: #202733;
+}
+
+body::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #171c25; /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #354155; /* color of the scroll thumb */
+  border-radius: 10px; /* roundness of the scroll thumb */
+  border: 3px solid #354155; /* creates padding around scroll thumb */
+}
+
+.title-color {
+  color: #599ce8;
+}
+
+.subtitle-color {
+  color: #d6e5ef;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-cadastro {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 70%;
+  position: relative;
+  margin-left: 10%;
+}
+
+.card-content {
+  display: flex;
+}
+
+.card-content-left,
+.card-content-right {
+  padding: 20px;
+}
+
+.card-content-left {
+  flex: 1;
+  text-align: center;
+}
+
+.card-content-right {
+  flex: 1;
+  margin-top: 120px;
+}
+
+.card-content-left img {
+  max-width: 100%;
+  width: auto;
+  height: 70vh;
+}
+
+.card-image {
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.card h1 {
   font-size: 36px;
   font-weight: bold;
 }
 
-.description {
+.card p {
   font-size: 18px;
-  margin-bottom: 30px;
-}
-
-.features-section,
-.get-started-section {
-  width: 60%;
-  margin-top: 40px;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.features-list {
-  list-style-type: square;
   margin-top: 20px;
 }
 
-.feature-item {
-  font-size: 16px;
-  margin: 8px 0;
-}
-
-.get-started-section h2,
-.features-section h2 {
-  font-size: 24px;
-}
-
-.get-started-links {
-  margin-top: 20px;
-}
-
-.get-started-links a {
-  font-size: 18px;
-  margin: 0 10px;
+.link {
   text-decoration: none;
-  color: blue;
+  color: #4c84c4;
+  cursor: pointer;
+}
+
+.signup-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #599ce8;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+  left: 30%;
+}
+
+.signup-button:hover {
+  background-color: #4c84c4;
+}
+
+.features-section {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 70%;
+  margin-left: 10%;
 }
 
 @media (max-width: 768px) {
-  .home-container {
-    padding: 30px;
+  .card-cadastro,
+  .features-section {
+    width: 100%;
+    margin-left: 0;
   }
 
-  .header {
-    font-size: 28px;
+  .card-content {
+    flex-direction: column;
   }
 
-  .description,
-  .feature-item,
-  .get-started-links a {
-    font-size: 16px;
+  .card-content-left,
+  .card-content-right {
+    width: 100%;
+    padding: 10px;
   }
 
-  .features-section,
-  .get-started-section {
-    width: 80%;
+  .card-content-right {
+    margin-top: 0;
   }
 
-  .get-started-section h2,
-  .features-section h2 {
-    font-size: 20px;
+  .signup-button {
+    left: 0;
+    display: block;
+    margin: 20px auto 0; /* Centraliza o botão horizontalmente */
   }
 }
 
+/* Para telas com largura até 480px (smartphones) */
 @media (max-width: 480px) {
-  .home-container {
-    padding: 20px;
+  .card h1 {
+    font-size: 28px;
   }
 
-  .header {
-    font-size: 24px;
-  }
-
-  .features-section,
-  .get-started-section {
-    width: 100%;
+  .card p {
+    font-size: 16px;
   }
 }

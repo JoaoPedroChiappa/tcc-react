@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import "../css/Dice.css";
 
-import d6 from "../assets/d6.png";
-import d10 from "../assets/d10.png";
-import d20 from "../assets/d20.png";
+import d6 from "../assets/images/dices/d6.png";
+import d10 from "../assets/images/dices/d10.png";
+import d20 from "../assets/images/dices/d20.png";
 
 function Die({ sides, result, setResult }) {
   const [rolling, setRolling] = useState(false);
