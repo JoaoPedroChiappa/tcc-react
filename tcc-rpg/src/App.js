@@ -5,6 +5,7 @@ import { auth } from "./firebaseConfig";
 import "../src/css/App.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";
@@ -18,6 +19,8 @@ import JoinRoom from "./pages/chat/JoinChatRoom";
 const App = () => {
   const [user, setUser] = useState(null);
   const queryClient = new QueryClient();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,39 +30,89 @@ const App = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Router basename="/tcc-react">
       <div className="app-container">
         <nav className="app-nav">
-          <ul className="nav-list">
-            <li className="nav-item">
-              <Link to="/">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/DiceRoller">DiceRoller</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/CharacterList">Characters</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/Tutorial">Tutorial</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/ChatRoom">Chat</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/Amigos">Amigos</Link>
-            </li>
-            {user ? (
+          {windowWidth <= 768 ? (
+            <>
+              <button onClick={() => setDropdownOpen(!dropdownOpen)}>
+                <GiHamburgerMenu />
+              </button>
+              {dropdownOpen && (
+                <ul className="nav-list-mobile">
+                  <li className="nav-item">
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/DiceRoller">Dados</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/CharacterList">Personagens</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/Tutorial">Tutorial</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/ChatRoom">Chat</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/Amigos">Amigos</Link>
+                  </li>
+                  <div className="spacer"></div>
+                  {user ? (
+                    <li className="nav-item">
+                      <Link to="/Login">Logout</Link>
+                    </li>
+                  ) : (
+                    <li className="nav-item">
+                      <Link to="/Login">Login</Link>
+                    </li>
+                  )}
+                </ul>
+              )}
+            </>
+          ) : (
+            <ul className="nav-list">
               <li className="nav-item">
-                <Link to="/Login">Logout</Link>
+                <Link to="/">Home</Link>
               </li>
-            ) : (
               <li className="nav-item">
-                <Link to="/Login">Login</Link>
+                <Link to="/DiceRoller">Dados</Link>
               </li>
-            )}
-          </ul>
+              <li className="nav-item">
+                <Link to="/CharacterList">Personagens</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/Tutorial">Tutorial</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/ChatRoom">Chat</Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/Amigos">Amigos</Link>
+              </li>
+              {user ? (
+                <li className="nav-item">
+                  <Link to="/Login">Logout</Link>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <Link to="/Login">Login</Link>
+                </li>
+              )}
+            </ul>
+          )}
         </nav>
 
         <div className="content-wrapper">
