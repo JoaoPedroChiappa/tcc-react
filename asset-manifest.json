@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/tcc-react/static/css/main.e9ca17ca.css",
-    "main.js": "/tcc-react/static/js/main.efd4ea78.js",
+    "main.js": "/tcc-react/static/js/main.093d9ca2.js",
     "static/media/jogadoresrpg.png": "/tcc-react/static/media/jogadoresrpg.846a6e98e698967c317f.png",
     "static/media/arcanewarrior.png": "/tcc-react/static/media/arcanewarrior.3178c22fd4f808cb322e.png",
     "static/media/logo.png": "/tcc-react/static/media/logo.62871769c67142385987.png",
@@ -9,10 +9,10 @@
     "static/media/d10.png": "/tcc-react/static/media/d10.4f6751bedbf47a07ebe1.png",
     "index.html": "/tcc-react/index.html",
     "main.e9ca17ca.css.map": "/tcc-react/static/css/main.e9ca17ca.css.map",
-    "main.efd4ea78.js.map": "/tcc-react/static/js/main.efd4ea78.js.map"
+    "main.093d9ca2.js.map": "/tcc-react/static/js/main.093d9ca2.js.map"
   },
   "entrypoints": [
     "static/css/main.e9ca17ca.css",
-    "static/js/main.efd4ea78.js"
+    "static/js/main.093d9ca2.js"
   ]
 }
