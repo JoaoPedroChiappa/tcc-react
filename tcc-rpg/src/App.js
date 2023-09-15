@@ -53,9 +53,9 @@ const App = () => {
               <Link to="/">
                 <img
                   src={icon}
-                  width={60}
-                  height={80}
-                  style={{ position: "absolute", top: "-7px" }}
+                  width={58}
+                  height={78}
+                  style={{ position: "absolute", top: "-8px" }}
                   alt="logo"
                 />
               </Link>
