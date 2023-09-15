@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { useQueryClient } from "react-query";
 
 const CharacterEdit = ({ updateCharacterList }) => {
   const history = useHistory();
@@ -9,6 +10,8 @@ const CharacterEdit = ({ updateCharacterList }) => {
   const [name, setName] = useState("");
   const [characterClass, setCharacterClass] = useState("");
   const [characterRace, setCharacterRace] = useState("");
+  const queryClient = useQueryClient();
+
 
   useEffect(() => {
     // Consulta o personagem pelo ID
@@ -38,11 +41,9 @@ const CharacterEdit = ({ updateCharacterList }) => {
         name: name,
         class: characterClass,
         race: characterRace,
-        // Adicione aqui os outros campos que deseja atualizar
       });
-
-      // Redireciona para a página de visualização após a atualização
-      await updateCharacterList();
+  
+      queryClient.invalidateQueries("characters");
       history.push("/CharacterList");
     } catch (error) {
       console.error("Error updating character details: ", error);

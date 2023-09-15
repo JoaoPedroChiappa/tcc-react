@@ -31,15 +31,12 @@ button:active {
 }
 
 @media only screen and (max-width: 768px) {
+
+
   div[style*="display: flex"] {
     flex-direction: column;
-    height: 100vh;
+    height: auto;
     justify-content: space-evenly;
-    margin-top: 10vh;
-  }
-
-  .diceWrapper {
-    padding-top: 50px;
   }
 
   div[style*="display: inline-block"] {

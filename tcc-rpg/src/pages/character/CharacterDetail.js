@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory  } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { useQuery } from "react-query";
@@ -16,6 +16,7 @@ const fetchCharacterDetail = async (characterId) => {
 
 const CharacterDetail = () => {
   const { characterId } = useParams();
+  const history = useHistory();
   const {
     data: character,
     isLoading,
@@ -38,6 +39,7 @@ const CharacterDetail = () => {
 
   return (
     <div className="character-detail-container">
+      <button onClick={history.goBack}>Voltar</button>
       <h2>Detalhes do Personagem</h2>
       <p>
         <strong>Nome:</strong> {character.name}

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 import { auth, db } from "../../firebaseConfig";
+import { useQueryClient } from "react-query"; 
 import "../../css/Characters.css";
 
 const CharacterCreation = () => {
   const history = useHistory();
+  const queryClient = useQueryClient();
   const [characterName, setCharacterName] = useState("");
   const [characterClass, setCharacterClass] = useState("");
   const [characterRace, setCharacterRace] = useState("");
@@ -61,6 +63,8 @@ const CharacterCreation = () => {
         // Adicione o personagem ao banco de dados
         const charactersCollection = collection(db, "characters"); // Use a instância do Firestore (db)
         await addDoc(charactersCollection, newCharacter);
+
+        queryClient.invalidateQueries("characters");
 
         // Limpe os campos após a criação bem-sucedida
         setCharacterName("");

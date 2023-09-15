@@ -84,7 +84,7 @@ function DiceRoller() {
 
   return (
     <div
-      class="diceWrapper"
+    className="diceWrapper"
       style={{
         display: "flex",
         justifyContent: "center",

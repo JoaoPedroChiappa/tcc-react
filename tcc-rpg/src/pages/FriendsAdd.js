@@ -16,6 +16,11 @@ import "../css/FriendsAdd.css";
 function FriendsAdd({ currentUserId }) {
   const [friends, setFriends] = useState([]); // Para armazenar a lista de amigos
   const [friendUsername, setFriendUsername] = useState(""); // Alterado de friendEmail para friendUsername
+  const [isModalOpen, setIsModalOpen] = useState(false);
+const [friendToRemove, setFriendToRemove] = useState(null);
+const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+const [addedFriendName, setAddedFriendName] = useState('');
+
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -50,6 +55,26 @@ function FriendsAdd({ currentUserId }) {
     fetchFriends();
   }, [currentUserId]);
 
+  const openRemoveModal = (friendId) => {
+    setFriendToRemove(friendId);
+    setIsModalOpen(true);
+  };
+
+  const closeRemoveModal = () => {
+    setIsModalOpen(false);
+    setFriendToRemove(null);
+  };  
+
+  const openSuccessModal = (friendName) => {
+    setAddedFriendName(friendName);
+    setIsSuccessModalOpen(true);
+  };
+  
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+    setAddedFriendName('');
+  };  
+
   const handleAddFriend = async () => {
     if (!currentUserId) {
       alert("Por favor, faça login primeiro.");
@@ -62,24 +87,33 @@ function FriendsAdd({ currentUserId }) {
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-        const friendSnapshot = querySnapshot.docs[0]; // Pega o primeiro documento que corresponde (deve ser único)
+        const friendSnapshot = querySnapshot.docs[0];
 
         if (friendSnapshot && friendSnapshot.id) {
-          const friendUserId = friendSnapshot.id;
+            const friendUserId = friendSnapshot.id;
+            const friendData = friendSnapshot.data();  // Obtendo os dados do amigo
 
-          // Atualiza a lista de amigos do usuário atual
-          const currentUserRef = doc(db, "users", currentUserId);
-          await updateDoc(currentUserRef, {
-            friends: arrayUnion(friendUserId),
-          });
+            // Atualiza a lista de amigos do usuário atual
+            const currentUserRef = doc(db, "users", currentUserId);
+            await updateDoc(currentUserRef, {
+                friends: arrayUnion(friendUserId),
+            });
 
-          // Opcionalmente, adicione o usuário atual como amigo do amigo
-          const friendUserRef = doc(db, "users", friendUserId);
-          await updateDoc(friendUserRef, {
-            friends: arrayUnion(currentUserId),
-          });
+            // Opcionalmente, adicione o usuário atual como amigo do amigo
+            const friendUserRef = doc(db, "users", friendUserId);
+            await updateDoc(friendUserRef, {
+                friends: arrayUnion(currentUserId),
+            });
 
-          alert("Amigo adicionado com sucesso!");
+            openSuccessModal(friendData.username);
+
+            setFriends(prevFriends => [
+              ...prevFriends,
+              {
+                  id: friendUserId,
+                  username: friendData.username
+              }
+          ]);
         } else {
           alert("Erro ao obter o ID do usuário amigo!");
         }
@@ -95,6 +129,7 @@ function FriendsAdd({ currentUserId }) {
   };
 
   const handleRemoveFriend = async (friendId) => {
+    if (friendToRemove) {
     try {
       // Remove o amigo da lista de amigos do usuário atual
       const userRef = doc(db, "users", currentUserId);
@@ -116,10 +151,45 @@ function FriendsAdd({ currentUserId }) {
       console.error("Erro ao remover amigo: ", error);
       alert("Ocorreu um erro ao remover o amigo. Por favor, tente novamente.");
     }
-  };
+    closeRemoveModal();
+    setFriendToRemove(null);
+  }
+};
+
+const renderRemoveModal = () => {
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <h2>Confirmação</h2>
+        <p>Tem certeza de que deseja remover este amigo?</p>
+        <div className="modal-buttons">
+        <button onClick={() => handleRemoveFriend(friendToRemove)}>Sim, Remover</button>
+        <button className="remove-button" onClick={closeRemoveModal}>Cancelar</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const renderSuccessModal = () => {
+  return (
+    <div className="modal success-modal">
+      <div className="modal-content">
+        <h2>Sucesso!</h2>
+        <p>{addedFriendName} adicionado com sucesso!</p>
+        <button onClick={closeSuccessModal}>Ok</button>
+      </div>
+    </div>
+  );
+};
+
 
   return (
     <div className="friends-add-container">
+    {isModalOpen && renderRemoveModal()}
+    {isSuccessModalOpen && renderSuccessModal()}
+      <h1 className="title-color">Adicionar Amigos</h1>
+      <p className="subtitle-color">Adicione seus amigos pelo username e mantenha-se conectado!</p>
       <input
         className="input-field"
         type="text"
@@ -136,10 +206,7 @@ function FriendsAdd({ currentUserId }) {
           {friends.map((friend, index) => (
             <li key={index} className="friend-item">
               {friend.username}{" "}
-              <button
-                className="remove-button"
-                onClick={() => handleRemoveFriend(friend.id)}
-              >
+              <button className="remove-button" onClick={() => openRemoveModal(friend.id)}>
                 Remover
               </button>
             </li>
@@ -148,6 +215,7 @@ function FriendsAdd({ currentUserId }) {
       </div>
     </div>
   );
+  
 }
 
 export default FriendsAdd;

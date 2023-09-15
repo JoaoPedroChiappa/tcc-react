@@ -33,9 +33,10 @@ const CharacterList = () => {
     "characters",
     fetchCharacters,
     {
-      staleTime: 600000, // 10 minutes
-    }
-  );
+      staleTime: 600000, 
+    });
+
+
 
   const deleteCharacterMutation = useMutation(
     (characterId) => deleteDoc(doc(db, "characters", characterId)),
@@ -55,6 +56,7 @@ const CharacterList = () => {
   };
 
   if (isLoading) return <div>Carregando...</div>;
+
 
   return (
     <Router>
@@ -85,10 +87,7 @@ const CharacterList = () => {
                   {character.race}
                 </td>
                 <td>
-                  <Link
-                    to={`/CharacterDetail/${character.id}`}
-                    className="detail-button"
-                  >
+                  <Link to={`/CharacterDetail/${character.id}`} className="detail-button">
                     Ver
                   </Link>
                   <Link
@@ -113,7 +112,7 @@ const CharacterList = () => {
       <Switch>
         <Route
           path="/CharacterDetail/:characterId"
-          render={(props) => <CharacterDetail />}
+          component={CharacterDetail}
         />
         <Route
           path="/CharacterCreation"
