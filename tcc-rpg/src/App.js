@@ -50,13 +50,15 @@ const App = () => {
               <button onClick={() => setDropdownOpen(!dropdownOpen)}>
                 <GiHamburgerMenu />
               </button>
-              <img
-                src={icon}
-                width={60}
-                height={80}
-                style={{ position: "absolute", top: "-7px" }}
-                alt="logo"
-              />
+              <Link to="/">
+                <img
+                  src={icon}
+                  width={60}
+                  height={80}
+                  style={{ position: "absolute", top: "-7px" }}
+                  alt="logo"
+                />
+              </Link>
               {dropdownOpen && (
                 <ul className="nav-list-mobile">
                   <li className="nav-item">
@@ -93,13 +95,15 @@ const App = () => {
           ) : (
             <ul className="nav-list">
               <li>
-                <img
-                  src={icon}
-                  width={60}
-                  height={80}
-                  alt="logo"
-                  style={{ position: "absolute", top: "-7px", left: "12px" }}
-                />
+                <Link to="/">
+                  <img
+                    src={icon}
+                    width={60}
+                    height={80}
+                    alt="logo"
+                    style={{ position: "absolute", top: "-7px", left: "12px" }}
+                  />
+                </Link>
               </li>
               <li className="nav-item">
                 <Link to="/">Home</Link>
