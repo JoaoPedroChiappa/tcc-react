@@ -141,7 +141,6 @@ body::-webkit-scrollbar-thumb {
 
   .card-content-left,
   .card-content-right {
-    width: 100%;
     padding: 10px;
   }
 
