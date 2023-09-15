@@ -37,8 +37,15 @@ body {
 }
 
 @media (max-width: 768px) {
-  .app-nav {
-    height: 10vh;
+  .app-nav button {
+    order: 1;
+  }
+
+  .app-nav img {
+    order: 2;
+    position: relative;
+    top: 0;
+    left: 0;
   }
 
   .nav-list {

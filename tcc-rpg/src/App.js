@@ -55,7 +55,7 @@ const App = () => {
                 width={60}
                 height={80}
                 alt="logo"
-                style={{ position: "absolute", top: "-6px", left: "50%" }}
+                style={{ position: "absolute", top: "-9px", left: "40%" }}
               />
               {dropdownOpen && (
                 <ul className="nav-list-mobile">
