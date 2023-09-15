@@ -7,6 +7,10 @@ import {
   onSnapshot,
   doc,
   getDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  deleteDoc,
 } from "firebase/firestore";
 import { useHistory } from "react-router-dom";
 import { db, auth } from "../../firebaseConfig";
@@ -63,14 +67,33 @@ function ChatRoom({ currentUserId, initialRoomId }) {
         username: username,
         timestamp: new Date(),
       });
-      setMessage(""); // Limpar o campo de mensagem após o envio
+      setMessage("");
     } catch (error) {
       console.error("Erro ao enviar mensagem: ", error);
     }
   };
 
-  const handleLeaveRoom = () => {
+  const handleLeaveRoom = async () => {
+    try {
+      const roomRef = doc(db, "chatRooms", roomId);
+      // 1. Remover o usuário da lista de membros
+      await updateDoc(roomRef, {
+        members: arrayRemove(currentUserId),
+      });
+
+      // 2. Verificar se a sala ainda tem membros
+      const roomSnapshot = await getDoc(roomRef);
+      const roomData = roomSnapshot.data();
+      if (roomData.members.length === 0) {
+        // 3. Se não tiver membros, deletar a sala
+        await deleteDoc(roomRef);
+      }
+    } catch (error) {
+      console.error("Erro ao sair da sala:", error);
+    }
+
     setRoomId("");
+    setRoomName("");
     localStorage.removeItem("roomId");
     history.push("/");
   };
@@ -97,11 +120,16 @@ function ChatRoom({ currentUserId, initialRoomId }) {
       }
     });
 
-    if (roomId) {
+    if (roomId && currentUserId) {
       const messagesRef = collection(db, "chatRooms", roomId, "messages");
       const q = query(messagesRef, orderBy("timestamp", "desc"));
 
       const roomRef = doc(db, "chatRooms", roomId);
+
+      updateDoc(roomRef, {
+        members: arrayUnion(currentUserId),
+      });
+
       const fetchRoomData = async () => {
         const roomSnapshot = await getDoc(roomRef);
         const roomData = roomSnapshot.data();
@@ -119,18 +147,21 @@ function ChatRoom({ currentUserId, initialRoomId }) {
 
       return () => [unsubscribe(), userLogin()];
     }
-  }, [roomId]);
+  }, [roomId, currentUserId]);
 
   return (
     <div className="chat-box">
-      <input
-        type="text"
-        value={roomName}
-        onChange={(e) => setRoomName(e.target.value)}
-        placeholder="Nome da Sala"
-      />
-      <button onClick={createRoom}>Criar Sala</button>
-
+      {!roomId && (
+        <>
+          <input
+            type="text"
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+            placeholder="Nome da Sala"
+          />
+          <button onClick={createRoom}>Criar Sala</button>
+        </>
+      )}
       {roomId && (
         <div>
           <h2>Sala de Chat: {roomName}</h2>

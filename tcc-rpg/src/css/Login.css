@@ -8,25 +8,48 @@
   margin: auto;
   padding: 30px;
   box-sizing: border-box;
-  height: auto; /* full viewport height */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  background-color: #ffffff;
+  background-color: #202733;
 }
 
 .login-button,
 .signup-button {
-  padding: 10px;
-  background-color: #007bff;
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #599ce8;
   color: white;
   margin: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover,
+.signup-button:hover {
+  background-color: #4c84c4;
 }
 
 .input-field {
   padding: 10px;
   margin: 10px;
   width: 100%;
+  border-radius: 4px;
+  border: 1px solid #354155;
+  background-color: #171c25;
+  color: #d6e5ef;
+  transition: border 0.3s ease;
+}
+
+.input-field::placeholder {
+  color: #7a8999;
+}
+
+.input-field:focus {
+  border: 1px solid #599ce8;
+  outline: none;
 }
 
 .error-message {
@@ -41,19 +64,19 @@
 .tab-button {
   flex: 1;
   padding: 10px;
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: #171c25;
+  color: #d6e5ef;
   cursor: pointer;
   border: none;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .tab-button:hover {
-  background-color: #ddd;
+  background-color: #1f2a38;
 }
 
 .tab-button.active {
-  background-color: #007bff;
+  background-color: #599ce8;
   color: white;
 }
 

@@ -13,7 +13,6 @@ const JoinRoom = ({ currentUserId }) => {
 
   return (
     <div>
-      Joining room with invite code: {inviteCode}
       <ChatRoom currentUserId={currentUserId} initialRoomId={inviteCode} />
     </div>
   );
