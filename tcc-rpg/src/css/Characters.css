@@ -2,7 +2,10 @@
   width: 80vw;
 }
 
-body, button, input, select {
+body,
+button,
+input,
+select {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #202733;
 }
@@ -15,8 +18,8 @@ h2 {
   color: #d6e5ef;
 }
 
-.character-creation-container, 
-.character-list-container, 
+.character-creation-container,
+.character-list-container,
 .character-edit-container {
   background-color: #202733;
   border-radius: 8px;
@@ -24,11 +27,103 @@ h2 {
   padding: 20px;
 }
 
+.character-creation-container h2 {
+  color: #599ce8;
+  margin-bottom: 20px;
+}
+
+.character-creation-container p {
+  margin: 0;
+}
+
+.character-creation-container label {
+  color: #d6e5ef;
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.character-creation-container input,
+.character-creation-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #354155;
+  border-radius: 4px;
+  background-color: #2b3545;
+  color: #d6e5ef;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.character-creation-container .input-group {
+  margin-bottom: 16px;
+}
+
+.character-creation-container .create-button {
+  background-color: #599ce8;
+  color: white;
+}
+
+.character-creation-container .create-button:hover {
+  background-color: #4c84c4;
+}
+
+.character-creation-container .error-message {
+  color: #f04f47;
+  font-weight: bold;
+}
+
+.character-edit-container {
+  background-color: #202733;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.character-edit-container h2 {
+  color: #599ce8;
+  margin-bottom: 20px;
+}
+
+.character-edit-container label {
+  color: #d6e5ef;
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.character-edit-container input,
+.character-edit-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #354155;
+  border-radius: 4px;
+  background-color: #2b3545;
+  color: #d6e5ef;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.character-edit-container input {
+  width: 97%;
+}
+
+.character-edit-container .save-button {
+  background-color: #28b865;
+  color: white;
+}
+
+.character-edit-container .input-group {
+  margin-bottom: 16px;
+}
+
 .create-button,
-.edit-button,
 .delete-button,
-.save-button,
-.detail-button {
+.save-button {
+  min-width: 80px; /* exemplo */
+  text-align: center; /* para centralizar o texto no botão */
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -46,7 +141,8 @@ h2 {
   background-color: #4c84c4;
 }
 
-.detail-button, .edit-button {
+.detail-button,
+.edit-button {
   display: inline-block;
   padding: 10px 20px;
   border: none;
@@ -54,8 +150,8 @@ h2 {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  color: white; 
-  text-decoration: none; 
+  color: white;
+  text-decoration: none;
   background-color: #3f4f69;
 }
 
@@ -81,7 +177,7 @@ h2 {
   padding: 20px;
   color: #d6e5ef;
   max-width: 800px;
-  margin: 20px auto; 
+  margin: 20px auto;
 }
 
 .attributes-row {
@@ -127,11 +223,12 @@ h2 {
 .delete-button,
 .save-button,
 .detail-button {
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
-.detail-button, .edit-button {
-  margin-right: 20px; 
+.detail-button,
+.edit-button {
+  margin-right: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -139,13 +236,14 @@ h2 {
   background: #0069d9;
 }
 
-.detail-button:hover, .edit-button:hover {
+.detail-button:hover,
+.edit-button:hover {
   background: #0069d9;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.delete-button{
-  background-color: #3f4f69!important;
+.delete-button {
+  background-color: #3f4f69 !important;
   margin-left: 0px;
 }
 
@@ -162,17 +260,23 @@ h2 {
   border-collapse: collapse;
 }
 
-.character-table th, .character-table td {
-  border: 1px solid #354155; 
+.character-table th,
+.character-table td {
+  border: 1px solid #354155;
   padding: 8px;
   text-align: left;
 }
 
 .character-table tr:nth-child(even) {
-  background-color: #2b3545; 
+  background-color: #2b3545;
 }
 
 @media (max-width: 768px) {
+  .character-edit-container input,
+  .character-creation-container input {
+    width: 96%;
+  }
+
   .character-creation-container,
   .character-list-container,
   .character-edit-container {
@@ -184,6 +288,7 @@ h2 {
   }
 
   .create-button,
+  .detail-button,
   .edit-button,
   .delete-button,
   .save-button {
@@ -198,33 +303,42 @@ h2 {
     margin-bottom: 10px;
   }
 
-  .detail-button{
-    margin-bottom: 10px!important;
+  .detail-button {
+    margin-bottom: 10px !important;
   }
 }
 
 @media (max-width: 480px) {
+  .table-web {
+    display: none;
+  }
+
+  .character-table .table-mobile::before {
+    content: attr(data-label);
+    flex-basis: 50%;
+    font-weight: bold;
+  }
 
   .character-detail-container {
     padding: 10px;
   }
 
   .attribute-box {
-    padding: 15px;
+    padding: 40px;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 24px;
     margin-bottom: 15px;
   }
 
   td {
-    display: flex;
-    flex-direction: column;
+    display: block;
+    padding: 10px 0;
   }
 
   .character-form label {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .character-list-container {
@@ -233,19 +347,47 @@ h2 {
   }
 
   .character-form input {
-    padding: 6px;
+    padding: 8px;
+    font-size: 14px;
   }
 
   .character-table {
-    min-width: 600px;
+    width: 100%;
+    overflow-x: scroll;
   }
 
-  .create-button, .edit-button, .delete-button, .save-button {
-    padding: 5px 10px;
-    font-size: 12px;
+  .character-table th,
+  .character-table td {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .detail-button, .edit-button, .delete-button {
+  .create-button,
+  .detail-button,
+  .edit-button,
+  .delete-button,
+  .save-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .detail-button,
+  .edit-button,
+  .delete-button {
     margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .delete-button {
+    margin-top: 0px;
+  }
+
+  .character-edit-container input,
+  .character-creation-container input {
+    width: 95%;
+    height: 25px;
   }
 }

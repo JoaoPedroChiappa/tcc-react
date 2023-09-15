@@ -64,7 +64,7 @@ const CharacterList = () => {
           <button className="create-button">Criar Novo Personagem</button>
         </Link>
         <table className="character-table">
-          <thead>
+          <thead className="table-web">
             <tr>
               <th>Nome</th>
               <th>Classe</th>
@@ -75,9 +75,15 @@ const CharacterList = () => {
           <tbody>
             {characters.map((character) => (
               <tr key={character.id}>
-                <td>{character.name}</td>
-                <td>{character.class}</td>
-                <td>{character.race}</td>
+                <td className="table-mobile" data-label="Nome:">
+                  {character.name}
+                </td>
+                <td className="table-mobile" data-label="Classe:">
+                  {character.class}
+                </td>
+                <td className="table-mobile" data-label="Raça:">
+                  {character.race}
+                </td>
                 <td>
                   <Link
                     to={`/CharacterDetail/${character.id}`}

@@ -61,7 +61,7 @@ body::-webkit-scrollbar-thumb {
 
 .card-content-right {
   flex: 1;
-  margin-top: 200px;
+  margin: auto;
 }
 
 .card-content-left img {
@@ -124,7 +124,7 @@ body::-webkit-scrollbar-thumb {
   margin-left: 10%;
 }
 
-.features-section p{
+.features-section p {
   margin: 0;
 }
 
