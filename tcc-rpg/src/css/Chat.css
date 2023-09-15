@@ -1,0 +1,63 @@
+.chat-box {
+  max-width: 600px;
+  width: 95%; /* torna o chat mais largo por padrão */
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #333;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile First */
+
+.chat-box input {
+  width: 100%;
+  box-sizing: border-box; /* para garantir que o padding e a borda não adicionem ao width */
+  margin-top: 2vh;
+  padding: 10px;
+  border: 1px solid #354155;
+  border-radius: 4px;
+  background-color: #2b3545;
+  color: #d6e5ef;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.chat-messages {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 12px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #171c25;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #354155;
+  border-radius: 10px;
+  border: 3px solid #354155;
+}
+
+.message {
+  padding: 8px 0;
+}
+
+.message strong {
+  color: white;
+}
+
+.message-content {
+  color: #fff;
+}
+
+/* Adaptações para Tablets */
+@media screen and (max-width: 600px) {
+  .chat-box {
+    width: 80%; /* ocupa mais espaço na tela de tablets */
+  }
+}
