@@ -36,26 +36,22 @@ body {
   padding: 20px;
 }
 
-/* Media Queries para Responsividade */
-
-/* Para tablets e dispositivos com tamanho médio */
 @media (max-width: 768px) {
   .nav-list {
     display: none;
   }
 
-  /* Estiliza a lista de navegação dropdown em dispositivos móveis */
   .nav-list-mobile {
     list-style: none;
     display: flex;
     flex-direction: column;
     position: absolute;
     background-color: #599ce8;
-    z-index: 1000; /* Para garantir que apareça acima de outros conteúdos */
-    width: 32%;
+    z-index: 1000;
+    width: 38%;
     margin: auto;
     height: 100%;
-    padding: 20px;
+    padding: 0px;
   }
 
   .spacer {
@@ -65,16 +61,20 @@ body {
   .nav-list-mobile .nav-item {
     padding: 6px;
     text-align: center;
-    border-bottom: 1px solid white; /* se você deseja separadores */
-    word-wrap: break-word; /* Isso irá quebrar palavras longas */
-    max-width: 100%; /* Isso garante que a entrada do menu não exceda o contêiner */
+    border-bottom: 1px solid #599ce8;
+    word-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .nav-item {
+    background-color: #5189c8;
   }
 
   .nav-list-mobile .nav-item a {
-    overflow: hidden; /* Isso corta o conteúdo extra */
-    text-overflow: ellipsis; /* Isso adiciona "..." se o conteúdo é muito longo para ser exibido */
-    white-space: nowrap; /* Isso evita que o texto seja quebrado em múltiplas linhas */
-    display: block; /* Isso faz com que o link ocupe toda a largura disponível */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
   }
 
   .content-wrapper {
