@@ -6,6 +6,7 @@ import "../src/css/App.css";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { GiHamburgerMenu } from "react-icons/gi";
+import icon from "../src/assets/images/logo/logo.png";
 
 import Home from "./pages/Home";
 import DiceRoller from "./pages/DiceRoller";
@@ -49,6 +50,13 @@ const App = () => {
               <button onClick={() => setDropdownOpen(!dropdownOpen)}>
                 <GiHamburgerMenu />
               </button>
+              <img
+                src={icon}
+                width={60}
+                height={80}
+                alt="logo"
+                style={{ position: "absolute", top: "-6px", left: "50%" }}
+              />
               {dropdownOpen && (
                 <ul className="nav-list-mobile">
                   <li className="nav-item">
@@ -84,6 +92,15 @@ const App = () => {
             </>
           ) : (
             <ul className="nav-list">
+              <li>
+                <img
+                  src={icon}
+                  width={60}
+                  height={80}
+                  alt="logo"
+                  style={{ position: "absolute", top: "-7px", left: "12px" }}
+                />
+              </li>
               <li className="nav-item">
                 <Link to="/">Home</Link>
               </li>
