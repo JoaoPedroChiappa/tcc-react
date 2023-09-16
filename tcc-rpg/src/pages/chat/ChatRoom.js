@@ -12,9 +12,18 @@ import {
   arrayRemove,
   deleteDoc,
 } from "firebase/firestore";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { db, auth } from "../../firebaseConfig";
 import "../../css/Chat.css";
+
+
+function NotLoggedInCard() {
+  return (
+      <div className="not-logged-in-card">
+          Bem-vindo à sala de chat! Para participar, faça <Link to="/Login">login</Link> ou <Link to="/Login">cadastre-se</Link>.
+      </div>
+  );
+}
 
 function ChatRoom({ currentUserId, initialRoomId }) {
   const [roomId, setRoomId] = useState(
@@ -149,64 +158,66 @@ function ChatRoom({ currentUserId, initialRoomId }) {
     }
   }, [roomId, currentUserId]);
 
-  return (
-    <div className="chat-box">
-      {!roomId && (
-        <>
-          <input
-            type="text"
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
-            placeholder="Nome da Sala"
-          />
-          <button onClick={createRoom}>Criar Sala</button>
-        </>
-      )}
-      {roomId && (
-        <div>
-          <h2>Sala de Chat: {roomName}</h2>
-
-          <button
-            onClick={() => navigator.clipboard.writeText(generateInviteLink())}
-          >
-            Copiar Link de Convite
-          </button>
-
-          <div className="chat-messages">
-            {messages.map((msg) => {
-              let userColor = userColors[msg.username];
-              if (!userColor) {
-                userColor = getRandomColor();
-                const newUserColors = {
-                  ...userColors,
-                  [msg.username]: userColor,
-                };
-                setUserColors(newUserColors);
-                localStorage.setItem(
-                  "userColors",
-                  JSON.stringify(newUserColors)
+  return currentUserData ? (
+    <>
+      <div className="chat-box">
+        {!roomId && (
+          <>
+            <input
+              type="text"
+              value={roomName}
+              onChange={(e) => setRoomName(e.target.value)}
+              placeholder="Nome da Sala"
+            />
+            <button onClick={createRoom}>Criar Sala</button>
+          </>
+        )}
+        {roomId && (
+          <div>
+            <h2>Sala de Chat: {roomName}</h2>
+            <button
+              onClick={() => navigator.clipboard.writeText(generateInviteLink())}
+            >
+              Copiar Link de Convite
+            </button>
+            <div className="chat-messages">
+              {messages.map((msg) => {
+                let userColor = userColors[msg.username];
+                if (!userColor) {
+                  userColor = getRandomColor();
+                  const newUserColors = {
+                    ...userColors,
+                    [msg.username]: userColor,
+                  };
+                  setUserColors(newUserColors);
+                  localStorage.setItem(
+                    "userColors",
+                    JSON.stringify(newUserColors)
+                  );
+                }
+                return (
+                  <div key={msg.id} className="message">
+                    <strong style={{ color: userColor }}>{msg.username}: </strong>
+                    <span className="message-content">{msg.content}</span>
+                  </div>
                 );
-              }
-              return (
-                <div key={msg.id} className="message">
-                  <strong style={{ color: userColor }}>{msg.username}: </strong>
-                  <span className="message-content">{msg.content}</span>
-                </div>
-              );
-            })}
+              })}
+            </div>
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Digite sua mensagem"
+            />
+            <button onClick={handleSendMessage}>Enviar</button>
+            <button onClick={handleLeaveRoom}>Sair da Sala</button>
           </div>
-
-          <input
-            type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Digite sua mensagem"
-          />
-          <button onClick={handleSendMessage}>Enviar</button>
-          {/* Botão para sair da sala */}
-          <button onClick={handleLeaveRoom}>Sair da Sala</button>
-        </div>
-      )}
+        )}
+      </div>
+    </>
+  ) : (
+    <div className="chat-container">
+      <NotLoggedInCard />
     </div>
   );
 }

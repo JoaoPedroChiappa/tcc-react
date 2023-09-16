@@ -1,6 +1,6 @@
 .chat-box {
   max-width: 600px;
-  width: 95%; /* torna o chat mais largo por padrão */
+  width: 95%; 
   margin: 10px auto;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -9,11 +9,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Mobile First */
-
 .chat-box input {
   width: 100%;
-  box-sizing: border-box; /* para garantir que o padding e a borda não adicionem ao width */
+  box-sizing: border-box; 
   margin-top: 2vh;
   padding: 10px;
   border: 1px solid #354155;
@@ -55,9 +53,37 @@
   color: #fff;
 }
 
-/* Adaptações para Tablets */
+.not-logged-in-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 0 auto;  
+  background-color: #202733;
+  width: 50%;     
+  color: white;
+  max-width: 500px; 
+  text-align: center;
+}
+
+.not-logged-in-card a {
+  color: #599ce8;
+  text-decoration: none;
+  margin: 0 3px; 
+}
+
+.not-logged-in-card a:hover {
+  text-decoration: underline;
+}
+
+.chat-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
 @media screen and (max-width: 600px) {
   .chat-box {
-    width: 80%; /* ocupa mais espaço na tela de tablets */
+    width: 80%; 
   }
 }
