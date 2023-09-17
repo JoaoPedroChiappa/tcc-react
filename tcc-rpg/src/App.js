@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebaseConfig";
@@ -22,22 +22,31 @@ const App = () => {
   const queryClient = new QueryClient();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
+    // 1. Função para o onAuthStateChanged
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
 
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
+    // 2. Função para o resize
     const handleResize = () => setWindowWidth(window.innerWidth);
-
     window.addEventListener("resize", handleResize);
 
+    // 3. Função para clique fora do dropdown
+    function handleClickOutside(event) {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setDropdownOpen(false);
+        }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Retorna a função de limpeza para remover os event listeners e a assinatura
     return () => {
-      window.removeEventListener("resize", handleResize);
+        unsubscribe();
+        window.removeEventListener("resize", handleResize);
+        document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -60,33 +69,33 @@ const App = () => {
                 />
               </Link>
               {dropdownOpen && (
-                <ul className="nav-list-mobile">
+                <ul className="nav-list-mobile" ref={dropdownRef}>
                   <li className="nav-item">
-                    <Link to="/">Home</Link>
+                  <Link to="/" onClick={() => setDropdownOpen(false)}>Home</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/DiceRoller">Dados</Link>
+                    <Link to="/DiceRoller" onClick={() => setDropdownOpen(false)}>Dados</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/CharacterList">Personagens</Link>
+                    <Link to="/CharacterList" onClick={() => setDropdownOpen(false)}>Personagens</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/Tutorial">Tutorial</Link>
+                    <Link to="/Tutorial" onClick={() => setDropdownOpen(false)}>Tutorial</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/ChatRoom">Chat</Link>
+                    <Link to="/ChatRoom" onClick={() => setDropdownOpen(false)}>Chat</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/Amigos">Amigos</Link>
+                    <Link to="/Amigos" onClick={() => setDropdownOpen(false)}>Amigos</Link>
                   </li>
                   <div className="spacer"></div>
                   {user ? (
                     <li className="nav-item">
-                      <Link to="/Login">Logout</Link>
+                      <Link to="/Login" onClick={() => setDropdownOpen(false)}>Logout</Link>
                     </li>
                   ) : (
                     <li className="nav-item">
-                      <Link to="/Login">Login</Link>
+                      <Link to="/Login" onClick={() => setDropdownOpen(false)}>Login</Link>
                     </li>
                   )}
                 </ul>

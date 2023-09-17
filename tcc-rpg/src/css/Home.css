@@ -164,16 +164,21 @@ body::-webkit-scrollbar-thumb {
 
 .card-comunicacao {
   display: inline-block;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-  width: 70%;
-  position: relative;
-  margin-left: 10%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: auto;
+    position: relative;
+    margin: auto;
 }
 
 @media (max-width: 768px) {
+
+  .content-wrapper {
+    padding: 18px!important;
+  }
+
   .card-cadastro,
   .features-section {
     width: 100%;
