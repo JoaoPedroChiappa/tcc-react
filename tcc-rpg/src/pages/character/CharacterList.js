@@ -15,6 +15,14 @@ import CharacterCreation from "./CharacterCreation";
 import CharacterEdit from "./CharacterEdit";
 import CharacterDetail from "./CharacterDetail";
 
+function NotLoggedInForCharacter() {
+  return (
+    <div className="not-logged-in-card">
+      Bem-vindo à página de personagens! Para visualizar ou criar personagens, faça <Link to="/Login">login</Link> ou <Link to="/Login">cadastre-se</Link>.
+    </div>
+  );
+}
+
 const fetchCharacters = async () => {
   const user = auth.currentUser;
   if (!user) return [];
@@ -36,7 +44,7 @@ const CharacterList = () => {
       staleTime: 600000, 
     });
 
-
+  const user = auth.currentUser;
 
   const deleteCharacterMutation = useMutation(
     (characterId) => deleteDoc(doc(db, "characters", characterId)),
@@ -57,6 +65,7 @@ const CharacterList = () => {
 
   if (isLoading) return <div>Carregando...</div>;
 
+  if (!user) return <NotLoggedInForCharacter />;
 
   return (
     <Router>

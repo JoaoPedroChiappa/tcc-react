@@ -23,6 +23,7 @@ const App = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const dropdownRef = useRef(null);
+  const hamburgerButtonRef = useRef(null);
 
   useEffect(() => {
     // 1. Função para o onAuthStateChanged
@@ -36,10 +37,11 @@ const App = () => {
 
     // 3. Função para clique fora do dropdown
     function handleClickOutside(event) {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setDropdownOpen(false);
-        }
-    }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target) && 
+          hamburgerButtonRef.current !== event.target) {
+          setDropdownOpen(false);
+      }
+  }
     document.addEventListener("mousedown", handleClickOutside);
 
     // Retorna a função de limpeza para remover os event listeners e a assinatura
@@ -56,9 +58,9 @@ const App = () => {
         <nav className="app-nav">
           {windowWidth <= 768 ? (
             <>
-              <button onClick={() => setDropdownOpen(!dropdownOpen)}>
+              <button ref={hamburgerButtonRef} onClick={() => setDropdownOpen(!dropdownOpen)}>
                 <GiHamburgerMenu />
-              </button>
+            </button>
               <Link to="/">
                 <img
                   src={icon}

@@ -46,7 +46,7 @@ const Home = () => {
               identificar seus amigos e veja o perfil deles. Adicione outros
               jogadores como amigos e comece a jogar hoje mesmo!
             </p>
-            <a href="Login" className="signup-button">
+            <a href="Login" className="signup-button-home">
               Cadastre-se
             </a>
           </div>

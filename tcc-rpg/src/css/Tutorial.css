@@ -1,42 +1,98 @@
-* {
-    font-family: Arial, Helvetica, sans-serif;
+.tutorial-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #141921;
+}
+
+.tutorial-container h1, .tutorial-container .title-color {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #599ce8;
+}
+
+.tutorial-container h2 {
+  text-align: center;
+}
+
+.tutorial-container h2, .tutorial-container .subtitle-color {
+  color: #d6e5ef;
+  margin-bottom: 30px;
+}
+
+.tutorial-container h3 {
+  color: #599ce8;
+}
+
+.accordion-content{
+  font-size: 18px;
+}
+
+.tutorial-container p, .accordion-content {
+  color: #d6e5ef;
+}
+
+.accordion-container {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #141921;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.accordion-container:hover {
+  background-color: #1f273c;
+}
+
+.tutorial-container h3 {
+  font-size: 24px;
+}
+
+.final-note {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-top: 30px;
+}
+
+/* Media queries para responsividade. */
+@media (max-width: 768px) {
+  .tutorial-container h1 {
+    font-size: 30px;
   }
-  
-  body {
-    background-color: #202733;
+
+  .tutorial-container h2 {
+    font-size: 20px;
   }
-  
-  h1 {
-    font-size: 36px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #599ce8;
+
+  .tutorial-container h3 {
+    font-size: 20px;
   }
-  
-  p {
+
+  .final-note, .accordion-content {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tutorial-container h1 {
+    font-size: 24px;
+  }
+
+  .tutorial-container h2 {
     font-size: 18px;
-    line-height: 1.5; /* Melhor espaçamento entre linhas para leitura */
-    color: #d6e5ef;
-    padding: 20px;
-    margin: 0 auto; /* Centralizar horizontalmente */
-    max-width: 800px; /* Limita a largura para uma leitura mais confortável */
   }
-  
-  @media (max-width: 768px) {
-    p {
-      font-size: 16px;
-      padding: 10px;
-    }
+
+  .tutorial-container h3 {
+    font-size: 18px;
   }
-  
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 28px;
-    }
-  
-    p {
-      font-size: 14px;
-    }
+
+  .final-note, .accordion-content {
+    font-size: 14px;
   }
-  
+}

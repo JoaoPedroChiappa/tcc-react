@@ -96,7 +96,7 @@ body::-webkit-scrollbar-thumb {
   cursor: pointer;
 }
 
-.signup-button {
+.signup-button-home {
   display: inline-block;
   padding: 10px 20px;
   border: none;
@@ -111,7 +111,7 @@ body::-webkit-scrollbar-thumb {
   left: 30%;
 }
 
-.signup-button:hover {
+.signup-button-home:hover {
   background-color: #4c84c4;
 }
 
@@ -163,14 +163,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-comunicacao {
-  display: inline-block;
+    display: inline-block;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
-    width: auto;
-    position: relative;
-    margin: auto;
+    width: 70%;
+    margin-left: 10%;
 }
 
 @media (max-width: 768px) {
@@ -179,10 +178,10 @@ body::-webkit-scrollbar-thumb {
     padding: 18px!important;
   }
 
-  .card-cadastro,
+  .card-personagem, .card-comunicacao, .card-cadastro,
   .features-section {
-    width: 100%;
-    margin-left: -22px;
+    width: auto;
+    margin: auto;
   }
 
   .card-content {
@@ -198,7 +197,7 @@ body::-webkit-scrollbar-thumb {
     margin-top: 0;
   }
 
-  .signup-button {
+  .signup-button-home {
     left: 0;
     display: block;
     margin: 20px auto 0; /* Centraliza o botão horizontalmente */
@@ -206,11 +205,6 @@ body::-webkit-scrollbar-thumb {
 
   .card-content-left img {
     height: 50vh; /* Ajusta a altura da imagem */
-  }
-
-  .card-personagem {
-    width: 100%;
-    margin-left: -22px;
   }
 
   .mini-cards {

@@ -10,16 +10,25 @@ import {
   collection,
   getDoc,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { db } from "../firebaseConfig";
 import "../css/FriendsAdd.css";
+
+function NotLoggedInFriendsCard() {
+  return (
+    <div className="not-logged-in-card">
+      Bem-vindo à página de amigos! Para adicionar ou ver seus amigos, faça <Link to="/Login">login</Link> ou <Link to="/Login">cadastre-se</Link>.
+    </div>
+  );
+}
 
 function FriendsAdd({ currentUserId }) {
   const [friends, setFriends] = useState([]); // Para armazenar a lista de amigos
   const [friendUsername, setFriendUsername] = useState(""); // Alterado de friendEmail para friendUsername
   const [isModalOpen, setIsModalOpen] = useState(false);
-const [friendToRemove, setFriendToRemove] = useState(null);
-const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
-const [addedFriendName, setAddedFriendName] = useState('');
+  const [friendToRemove, setFriendToRemove] = useState(null);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [addedFriendName, setAddedFriendName] = useState('');
 
 
   useEffect(() => {
@@ -184,37 +193,40 @@ const renderSuccessModal = () => {
 };
 
 
-  return (
-    <div className="friends-add-container">
+return currentUserId ? (
+  <div className="friends-add-container">
     {isModalOpen && renderRemoveModal()}
     {isSuccessModalOpen && renderSuccessModal()}
-      <h1 className="title-color">Adicionar Amigos</h1>
-      <p className="subtitle-color">Adicione seus amigos pelo username e mantenha-se conectado!</p>
-      <input
-        className="input-field"
-        type="text"
-        value={friendUsername}
-        onChange={(e) => setFriendUsername(e.target.value)}
-        placeholder="Username do amigo"
-      />
-      <button className="add-button" onClick={handleAddFriend}>
-        Adicionar Amigo
-      </button>
-      <div className="friends-list">
-        <h3>Meus Amigos</h3>
-        <ul>
-          {friends.map((friend, index) => (
-            <li key={index} className="friend-item">
-              {friend.username}{" "}
-              <button className="remove-button" onClick={() => openRemoveModal(friend.id)}>
-                Remover
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <h1 className="title-color">Adicionar Amigos</h1>
+    <p className="subtitle-color">Adicione seus amigos pelo username e mantenha-se conectado!</p>
+    <input
+      className="input-field"
+      type="text"
+      value={friendUsername}
+      onChange={(e) => setFriendUsername(e.target.value)}
+      placeholder="Username do amigo"
+    />
+    <button className="add-button" onClick={handleAddFriend}>
+      Adicionar Amigo
+    </button>
+    <div className="friends-list">
+      <h3>Meus Amigos</h3>
+      <ul>
+        {friends.map((friend, index) => (
+          <li key={index} className="friend-item">
+            {friend.username}{" "}
+            <button className="remove-button" onClick={() => openRemoveModal(friend.id)}>
+              Remover
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
-  );
+  </div>
+) : (
+  <NotLoggedInFriendsCard />
+);
+
   
 }
 
