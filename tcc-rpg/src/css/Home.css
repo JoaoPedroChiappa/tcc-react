@@ -45,6 +45,15 @@ body::-webkit-scrollbar-thumb {
   margin-left: 10%;
 }
 
+.home-container p {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #d6e5ef;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
 .card-content {
   display: flex;
 }
@@ -124,7 +133,8 @@ body::-webkit-scrollbar-thumb {
   margin-left: 10%;
 }
 
-.features-section p, .card-comunicacao p {
+.features-section p,
+.card-comunicacao p {
   margin: 0;
 }
 
@@ -163,22 +173,23 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-comunicacao {
-    display: inline-block;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    width: 70%;
-    margin-left: 10%;
+  display: inline-block;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 70%;
+  margin-left: 10%;
 }
 
 @media (max-width: 768px) {
-
   .content-wrapper {
-    padding: 18px!important;
+    padding: 18px !important;
   }
 
-  .card-personagem, .card-comunicacao, .card-cadastro,
+  .card-personagem,
+  .card-comunicacao,
+  .card-cadastro,
   .features-section {
     width: auto;
     margin: auto;

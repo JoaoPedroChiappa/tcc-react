@@ -33,8 +33,12 @@ h2 {
 }
 
 .character-creation-container p {
-  margin: 0;
+  font-size: 18px;
+  line-height: 1.5;
   color: #599ce8;
+  padding: 20px;
+  margin: 0;
+  max-width: 800px;
 }
 
 .character-creation-container label {
