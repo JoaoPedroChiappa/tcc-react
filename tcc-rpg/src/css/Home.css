@@ -42,7 +42,7 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 20px;
   width: 70%;
   position: relative;
-  margin-left: 10%;
+  margin: auto;
 }
 
 .home-container p {
@@ -130,7 +130,7 @@ body::-webkit-scrollbar-thumb {
   padding: 20px;
   margin-bottom: 20px;
   width: 70%;
-  margin-left: 10%;
+  margin: auto;
 }
 
 .features-section p,
@@ -139,14 +139,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-personagem {
-  display: inline-block;
+  display: block;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
   width: 70%;
   position: relative;
-  margin-left: 10%;
+  margin: auto;
 }
 
 .card-personagem p {
@@ -173,13 +173,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .card-comunicacao {
-  display: inline-block;
+  display: block;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
   width: 70%;
-  margin-left: 10%;
+  margin: auto;
 }
 
 @media (max-width: 768px) {
