@@ -83,27 +83,6 @@ const Login = () => {
     <div className="login-container">
       <h1>Login</h1>
 
-      <div className="tabs">
-        <button
-          className={`tab-button ${showLoginForm ? "active" : ""}`}
-          onClick={() => {
-            setShowLoginForm(true);
-            setShowSignupForm(false);
-          }}
-        >
-          Entrar
-        </button>
-        <button
-          className={`tab-button ${showSignupForm ? "active" : ""}`}
-          onClick={() => {
-            setShowSignupForm(true);
-            setShowLoginForm(false);
-          }}
-        >
-          Criar conta
-        </button>
-      </div>
-
       {isLoggedIn ? (
         <>
           <p>Bem-vindo, {currentUserData?.username}!</p>
@@ -113,6 +92,26 @@ const Login = () => {
         </>
       ) : (
         <>
+          <div className="tabs">
+            <button
+              className={`tab-button ${showLoginForm ? "active" : ""}`}
+              onClick={() => {
+                setShowLoginForm(true);
+                setShowSignupForm(false);
+              }}
+            >
+              Entrar
+            </button>
+            <button
+              className={`tab-button ${showSignupForm ? "active" : ""}`}
+              onClick={() => {
+                setShowSignupForm(true);
+                setShowLoginForm(false);
+              }}
+            >
+              Criar conta
+            </button>
+          </div>
           {showLoginForm && (
             <>
               <input
